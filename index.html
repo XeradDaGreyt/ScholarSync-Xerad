@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScholarSync</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+
+    <section>
+        <div class="login-box">
+          <form action="">
+            <h2>Login</h2>
+            
+           
+            <div class="input-box">
+              <span class="icon"><ion-icon name="person"></ion-icon></span>
+              <input type="text" id="loginUsername" required />
+              <label>Username</label>
+            </div>
+
+            <div class="input-box">
+              <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+              <input type="password" id="loginPassword" required />
+              <label>Password</label>
+            </div>
+
+            <div class="remember-forgot">
+              <label><input type="checkbox" id="rememberMe" /> Remember me</label>
+              <a href="#">Forgot Password?</a>
+            </div>
+
+            
+            <button type="submit">Login</button>
+
+            <div class="register-link">
+              <p>Don't have an account? <a href="register.html">Register</a></p>
+            </div>
+          </form>
+        </div>
+    </section>
+
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!--SCRIPT FOR THIS HTML-->
+    <script>
+      const loginForm = document.querySelector('form');
+
+      loginForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+
+          const usernameInput = document.getElementById('loginUsername').value;
+          const passwordInput = document.getElementById('loginPassword').value;
+          const rememberMe = document.getElementById('rememberMe').checked;
+
+        
+          const users = JSON.parse(localStorage.getItem('users')) || [];
+
+       
+          const user = users.find(u => u.username === usernameInput && u.password === passwordInput);
+
+          if (user) {
+              alert(`Welcome back, ${user.firstName}!`);
+              
+              const sessionData = { 
+                  username: user.username, 
+                  email: user.email,
+                  firstName: user.firstName,
+                  lastName: user.lastName
+              };
+              
+              if (rememberMe) {
+                //save at local storage
+                  localStorage.setItem('isLoggedIn', 'true');
+                  localStorage.setItem('currentUser', JSON.stringify(sessionData));
+              } else {
+                  // clears when browsers exits
+                  sessionStorage.setItem('currentUser', JSON.stringify(sessionData));
+              }
+
+              // Redirect to dash
+              window.location.href = "dashboard.html";
+          } else {
+              alert("Invalid Username or Password.");
+          }
+      });
+    </script>
+
+  </body>
+</html>

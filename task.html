@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScholarSync | Task</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="task.css">
+</head>
+<body class="dashboard-body">
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>ScholarSync</span>
+            </div>
+            <nav>
+                <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="#" class="active"><i class="fas fa-check-double"></i> Tasks</a>
+                <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
+                <a href="sched.html"><i class="fas fa-calendar-alt"></i> Schedule</a>
+                <a href="timer.html"><i class="fas fa-stopwatch"></i> Timer</a>
+                <div class="nav-divider"></div>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-nav">
+                <div class="welcome-header">
+                    <h1>Welcome back, Darex! 👋</h1>
+                    <p>Ready to achieve your goals today?</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search your desk...">
+                    </div>
+                </div>
+            </header>
+
+            <div class="tasks-workspace">
+                <div class="tasks-grid" id="tasksGrid"></div>
+            </div>
+
+            <div class="action-trigger-zone">
+                <button class="btn-add-task" id="openModalBtn">
+                    <i class="fas fa-plus"></i> Add Task
+                </button>
+            </div>
+
+            <footer class="dashboard-footer">
+                <p>"Small steps every day lead to big results."</p>
+            </footer>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="taskModal">
+        <div class="modal-box">
+            <h3>Create New Task</h3>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="taskName">Task Name</label>
+                    <input type="text" id="taskName" placeholder="e.g., Study Chemistry Chapter 4" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskDeadline">Deadline</label>
+                    <input type="date" id="taskDeadline" required>
+                </div>
+                <div class="form-group">
+                    <label>Priority Tier</label>
+                    <div class="priority-options">
+                        <input type="radio" name="priority" id="prio-high" value="High">
+                        <label for="prio-high" class="priority-label label-high">
+                            <span class="dot dot-high"></span> High
+                        </label>
+                        
+                        <input type="radio" name="priority" id="prio-low" value="Low">
+                        <label for="prio-low" class="priority-label label-low">
+                            <span class="dot dot-low"></span> Low
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-modal btn-cancel" id="closeModalBtn">Cancel</button>
+                    <button type="submit" class="btn-modal btn-save">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="task.js"></script>
+</body>
+</html>

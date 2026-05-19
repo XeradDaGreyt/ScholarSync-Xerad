@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify | ScholarSync</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <section>
+        <div class="login-box">
+            <div style="padding: 40px; text-align: center;">
+                <h2>Verify Email</h2>
+                <p style="color: white; margin: 20px 0;">Enter the 6-digit code sent to your email.</p>
+                
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="keypad"></ion-icon></span>
+                    <input type="text" id="vInput" maxlength="6" required />
+                    <label>Verification Code</label>
+                </div>
+
+                <button id="verifyBtn">Verify Account</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('verifyBtn').addEventListener('click', () => {
+            const enteredCode = document.getElementById('vInput').value;
+            const tempUser = JSON.parse(localStorage.getItem('tempUser'));
+
+            if (!tempUser) {
+                alert("No registration data found. Please register again.");
+                window.location.href = "register.html";
+                return;
+            }
+
+            if (enteredCode == tempUser.vCode) {
+                // Get existing users or empty array
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                
+                // Add new user (removing the vCode)
+                const newUser = {
+                    firstName: tempUser.firstName,
+                    lastName: tempUser.lastName,
+                    username: tempUser.username,
+                    email: tempUser.email,
+                    password: tempUser.password
+                };
+
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                // Clean up temp data
+                localStorage.removeItem('tempUser');
+
+                alert("Account verified successfully!");
+                window.location.href = "index.html"; // Redirect to login
+            } else {
+                alert("Incorrect code. Please try again.");
+            }
+        });
+    </script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    --sidebar-bg: rgba(255, 255, 255, 0.4);
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.45);
+    --text-main: #3a3b5c;
+    --text-muted: #6b6c8a;
+    --accent-active: #d4f7e6;
+    --priority-high: #ff6b6b;
+    --priority-low: #51cf66;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px; /* Handles horizontal scrollbars if they pop up */
+}
+
+/* Style for the tracking runner handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: 0.2s ease;
+}
+
+/* Subtle darken hover state interaction effect */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body.dashboard-body {
+    background: url('images/Untitled\ design.png');
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- Sidebar Layout (Copied exactly from style.css) --- */
+.sidebar {
+    width: 250px;
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+    position: fixed;
+    height: 100vh;
+    z-index: 10;
+}
+
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    margin-bottom: 35px;
+}
+
+.sidebar .logo i {
+    color: #5e5ce6;
+    font-size: 22px;
+    margin-right: 12px;
+}
+
+.sidebar .logo span {
+    font-size: 20px;
+    font-weight: 700;
+    color: #4c49d8;
+    letter-spacing: -0.5px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 12px;
+}
+
+.sidebar nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.sidebar nav a i {
+    margin-right: 14px;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.sidebar nav a.active {
+    background: var(--accent-active);
+    color: #1b4d3e;
+    font-weight: 600;
+}
+
+.sidebar nav a.active i {
+    color: #2b8a6a;
+}
+
+.sidebar nav a:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(4px);
+}
+
+.nav-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 15px 16px;
+}
+
+#logoutBtn {
+    margin-top: 20px;
+}
+
+/* --- Main Viewport Canvas (Copied from style.css) --- */
+.main-content {
+    margin-left: 250px;
+    flex-grow: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Top Header Nav (Copied from style.css) --- */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.welcome-header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.welcome-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* --- Search Bar Styling (Copied from style.css) --- */
+.search-bar {
+    position: relative;
+}
+
+.search-bar input {
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid var(--glass-border);
+    padding: 10px 16px 10px 40px;
+    border-radius: 20px;
+    width: 260px;
+    font-size: 14px;
+    color: var(--text-main);
+    outline: none;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    background: rgba(255, 255, 255, 0.75);
+    width: 300px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.search-bar i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* ==========================================================================
+   DASHBOARD SPECIFIC MODULES (ADJUSTED TO MATCH STYLE.CSS CODES)
+   ========================================================================== */
+
+/* Dashboard Grid adapted to style.css layout scales */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* Matched style.css task gap */
+    margin-bottom: 40px;
+}
+
+/* Glassmorphism Cards configured to blend identically with task cards */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px; /* Matched layout task card border radius */
+    padding: 20px; /* Matched layout task card padding style */
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.04);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card-header h3 { 
+    font-size: 15px; /* Aligned with task headers */
+    font-weight: 600; 
+    color: var(--text-main); 
+}
+
+.card-header i { 
+    color: var(--text-muted); 
+    cursor: pointer; 
+}
+
+/* Empty State Styling matches task empty states */
+.empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* --- Timer Section Component Elements --- */
+.timer-container {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.timer-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 10px solid rgba(255, 255, 255, 0.2);
+    border-top: 10px solid #4c49d8; /* Uses tasks theme brand color accent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.timer-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.btn-main, .btn-sub {
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-main { 
+    background: #4c49d8; /* Matching the main purple save theme action trigger colors */
+    color: white; 
+}
+
+.btn-sub { 
+    background: rgba(255, 255, 255, 0.4); 
+    border: 1px solid var(--glass-border);
+    color: var(--text-main); 
+}
+
+.btn-main:hover { 
+    background: #3b38c2; 
+}
+
+.timer-circle.active {
+    animation: spinRing 4s linear infinite;
+}
+
+@keyframes spinRing {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- Footer Area Sheet Structure --- */
+.dashboard-footer {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 14px 0;         
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+    width: 100%;             
+    margin-top: 20px;   
+}
+
+.dashboard-footer p {
+    font-size: 14px;
+    color: var(--text-main);
+    font-style: italic;
+}
+
+/* --- Media Queries Responsive Breakpoints Control (Copied from style.css) --- */
+@media (max-width: 1100px) {
+    .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+    .calendar-card { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+    }
+    .sidebar .logo span, .sidebar nav a span {
+        display: none;
+    }
+    .sidebar .logo { padding: 0; justify-content: center; }
+    .sidebar nav a i { margin-right: 0; font-size: 18px; }
+    .main-content { margin-left: 70px; padding: 20px; }
+    .top-nav { flex-direction: column; gap: 20px; }
+    .search-bar input { width: 100%; }
+    .search-bar input:focus { width: 100%; }
+    .dashboard-grid { grid-template-columns: 1fr; }
+}
