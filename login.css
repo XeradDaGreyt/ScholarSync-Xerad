@@ -34,12 +34,12 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(1000px);
 }
 
 h2{
     font-size: 2em;
-    color: white;
+    color: rgb(255, 255, 255);
     text-align: center;
 }
 
@@ -84,6 +84,12 @@ h2{
     color: #fff;
     font-size: 1.2em;
     line-height: 57px;
+}
+
+.input-box .icon ion-icon {
+    pointer-events: auto; /* Ensures the icon is explicitly clickable */
+    position: relative;
+    z-index: 2; /* Keeps it above the floating label layer */
 }
 
 .remember-forgot {
@@ -135,6 +141,69 @@ button {
 
 .register-link p a:hover {
     text-decoration: underline;
+}
+
+/* Styling the Dialog Window */
+dialog {
+    border: none;
+    border-radius: 15px;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Modal Dimmer/Overlay effect */
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-header h3 {
+    color: #333;
+    font-size: 1.4em;
+}
+
+/* Close "X" Button Style */
+#closeTerms {
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: #666;
+    cursor: pointer;
+    line-height: 1;
+    width: auto; /* Overrides global button width */
+    height: auto; /* Overrides global button height */
+}
+
+#closeTerms:hover {
+    color: #000;
+}
+
+.modal-body {
+    color: #444;
+    font-size: 0.95em;
+    line-height: 1.6;
+    max-height: 350px;
+    overflow-y: auto; /* Scrollable if text overflows */
+}
+
+.modal-body p {
+    margin-bottom: 12px;
 }
 
 @media (max-width: 360px) {

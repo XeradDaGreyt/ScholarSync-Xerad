@@ -1,0 +1,849 @@
+/* --- TOP NAVIGATION AND ALIGNMENT SETTLEMENTS --- */
+.top-nav { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+        .welcome-header h1 { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+        .welcome-header p { color: var(--text-muted); font-size: 14px; }
+        .header-right { display: flex; align-items: center; gap: 20px; }
+
+/* Aligns the search box to the right side seamlessly */
+.header-right {
+    .header-right { display: flex; align-items: center; gap: 20px; }
+}
+
+.search-bar { position: relative; }
+        .search-bar input {
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--glass-border);
+            padding: 10px 16px 10px 40px;
+            border-radius: 20px;
+            width: 260px;
+            font-size: 14px;
+            color: var(--text-main);
+            outline: none;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        .search-bar input:focus { background: rgba(255, 255, 255, 0.75); width: 300px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); }
+        .search-bar i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 14px; }
+
+/* Controls layout grouping sitting directly on the Top Left */
+.controls-row-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    margin-top: 20px;
+}
+
+/* LEFT SIDE dropdown styling constraints */
+.view-dropdown-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 165px;
+}
+
+.dropdown-icon {
+    position: absolute;
+    left: 14px;
+    color: #7d879c;
+    font-size: 12px;
+    pointer-events: none;
+}
+
+.view-dropdown-container select {
+    width: 100%;
+    padding: 10px 16px 10px 34px;
+    border-radius: 14px;
+    border: 1px solid #e1e5eb;
+    background: white;
+    color: #4a5073;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    height: 38px;
+}
+
+.view-dropdown-container::after {
+    content: '\f107';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 14px;
+    color: #7d879c;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.view-dropdown-container select:hover {
+    border-color: #cbd2dc;
+    background: #f8f9fa;
+}
+
+/* SELECT NOTES BUTTON POSITIONED ON LEFT SIDE NEXT TO DROPDOWN */
+.select-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 18px;
+    border-radius: 14px;
+    border: 1px solid #e1e5eb;
+    background: white;
+    color: #4a5073;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    box-sizing: border-box;
+    height: 38px;
+}
+
+.select-toggle-btn:hover { background: #f8f9fa; border-color: #cbd2dc; }
+.select-toggle-btn.active { background: #ff7675; color: white; border-color: #ff7675; }
+
+/* GRID SETUP */
+#notesWorkspace {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    min-height: 77vh; 
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+/* CATEGORY DATE BOUNDARIES */
+.category-section {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.category-section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4a5073;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 3px solid #5d5be5;
+    padding-left: 10px;
+}
+
+.category-count {
+    font-size: 12px;
+    font-weight: 500;
+    color: #a0aec0;
+}
+
+/* NOTE CARD DESIGN */
+.note-card {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 24px;
+    border-radius: 20px;
+    min-height: 180px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.note-card:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 12px 38px 0 rgba(31, 38, 135, 0.08);
+}
+
+.note-card.selectable { cursor: pointer; }
+.note-card.selectable:hover { border-color: rgba(93, 91, 229, 0.3); }
+.note-card.selected { background: rgba(93, 91, 229, 0.06); border-color: #5d5be5; }
+
+.note-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding-right: 25px;
+}
+
+.note-card h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #3e4462;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.priority-badge {
+    background: #FFFF00;
+    color: rgb(108, 108, 108);
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+
+
+.note-body {
+    font-size: 14px;
+    color: #6c757d;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.note-body {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+#viewNoteModal {
+    background: rgba(0, 0, 0, 0.4); /* Darker dim overlay to make glass pop */
+    backdrop-filter: blur(8px); /* Frosted glass background effect */
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.view-modal-content {
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    
+    /* Glassmorphism Surface Core Styles */
+    background: rgba(255, 255, 255, 0.75); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    
+    padding: 25px;
+    border-radius: 16px; /* Smoother, more modern rounded corners */
+}
+
+/* Glass Inner Header Accent */
+#viewModalTitle {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    padding-bottom: 12px;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.view-modal-body {
+    overflow-y: auto;
+    margin: 15px 0;
+    padding-right: 10px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #2b2b2b; /* Slightly darker for better legibility on frosted glass */
+}
+
+/* Glass Custom Smooth Scrollbar */
+.view-modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.view-modal-body::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 10px;
+}
+.view-modal-body::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+
+/* Glass Inner Footer Accent */
+.view-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 15px;
+}
+
+/* FOOTER GRID SETTINGS */
+/* --- Footer Area Sheet Structure --- */
+.ss-footer {
+    background: rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(16px); 
+    -webkit-backdrop-filter: blur(16px);
+    color: var(--text-main);
+    width: calc(100% + 80px); 
+    margin-left: -40px;        
+    margin-top: auto;         
+    padding: 3rem 40px 1.5rem 40px; 
+    border-top: 1px solid var(--glass-border);
+    box-shadow: 0 -8px 32px rgba(31, 38, 135, 0.05);
+    box-sizing: border-box;
+}
+
+/* Ensure link items clean up default space and margins */
+.ss-footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;  
+}
+
+.ss-footer-links a {
+    text-decoration: none; 
+}
+
+.ss-footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Light Theme Font Typography overrides */
+.ss-footer-brand h2 {
+    color: #4c49d8; /* Matches your sidebar ScholarSync logo brand color */
+    font-weight: 700;
+}
+
+.ss-footer-heading {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.ss-footer-brand p,
+.ss-footer-links a,
+.ss-footer-contact p,
+.ss-footer-contact a {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Modern clean accent link text hover state styling */
+.ss-footer-links a:hover,
+.ss-footer-contact a:hover {
+    color: #5e5ce6;
+    transform: translateX(4px);
+    text-shadow: 0 0 8px rgba(94, 92, 230, 0.2);
+}
+
+.ss-footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06); /* Clean light separator line */
+    text-align: center;
+}
+
+.ss-footer-bottom p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* --- RESPONSIVE DESIGN ADJUSTMENTS (Updated for Mobile margins) --- */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 70px; 
+        padding: 20px 20px 0 20px; /* Adjusts for narrow mobile viewport layout rules */
+    }
+
+    .ss-footer {
+        width: calc(100% + 40px); /* Offsets the narrower 20px mobile padding layout rules */
+        margin-left: -20px;
+        padding: 2.5rem 20px 1.5rem 20px;
+    }
+
+    .ss-footer-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .ss-footer-brand, 
+    .ss-footer-links, 
+    .ss-footer-contact {
+        text-align: center;
+    }
+
+    .ss-footer-brand p {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .ss-footer-links a:hover {
+        transform: translateY(-2px);
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        height: 100%;
+    }
+    .sidebar .logo span, .sidebar nav a span {
+        display: none;
+    }
+    .sidebar .logo { padding: 0; justify-content: center; }
+    .sidebar nav a i { margin-right: 0; font-size: 18px; }
+    .main-content { margin-left: 70px; padding: 20px; }
+    .top-nav { flex-direction: column; gap: 20px; }
+    .search-bar input { width: 100%; }
+    .search-bar input:focus { width: 100%; }
+    .action-trigger-zone {
+        right: 20px;        /* Pulls button slightly closer to the edge on mobile screens */
+        bottom: 85px;
+    }
+    .dashboard-footer { max-width: 100%; }
+
+    .sidebar nav a::after {
+        content: attr(title); /* Grabs text values safely from the HTML title tags */
+        position: absolute;
+        left: 65px; /* Safely clears the slim sidebar boundaries */
+        top: 50%;
+        transform: translateY(-50%) translateX(-10px);
+        background: #181827; /* Dark glass contrast hue styling */
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 8px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        z-index: 99999;
+    }
+
+    /* Small pointer indicator triangle for the tooltip box */
+    .sidebar nav a::before {
+        content: '';
+        position: absolute;
+        left: 59px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-width: 4px 6px 4px 0;
+        border-style: solid;
+        border-color: transparent #181827 transparent transparent;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        z-index: 99999;
+    }
+
+    /* Hover State Active Trigger Animations */
+    .sidebar nav a:hover::after {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+
+    .sidebar nav a:hover::before {
+        opacity: 1;
+    }
+}
+
+/* -------------------------------------------- */
+
+.note-footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    padding-top: 14px;
+}
+
+.note-date {
+    font-size: 11px;
+    font-weight: 500;
+    color: #8fa0ba;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.note-actions { display: flex; gap: 8px; }
+
+.action-btn {
+    border: 1px solid #e1e5eb;
+    background: white;
+    color: #7d879c;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover { background: #f1f3f7; color: #333; }
+.edit-btn:hover { color: #4a90e2; border-color: #4a90e2; }
+.delete-btn:hover { color: #ff4d4d; border-color: #ff4d4d; }
+
+/* MULTI-SELECT CHECKBOX LOGIC DISPLAY */
+.card-checkbox-wrapper {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    display: none;
+    z-index: 5;
+}
+.card-checkbox-wrapper.visible { display: block; }
+.card-checkbox-wrapper input[type="checkbox"] { display: none; }
+.card-checkbox-wrapper label {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #cbd2dc;
+    background: white;
+    display: block;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+.card-checkbox-wrapper input[type="checkbox"]:checked + label { background: #5d5be5; border-color: #5d5be5; }
+.card-checkbox-wrapper input[type="checkbox"]:checked + label::after {
+    content: '\f00c'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+    color: white; font-size: 10px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+
+/* LOWER BULK ACTION TOOLBAR BANNER (EQUALIZED SIZES) */
+.bulk-action-bar {
+    position: fixed;
+    bottom: -150px; /* Kept completely hidden off-screen until a note is checked */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 18px 24px;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 400px;
+    max-width: 90%;
+    z-index: 1005;
+    transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-sizing: border-box;
+}
+.bulk-action-bar.show { bottom: 30px; }
+.bulk-info { font-size: 14px; font-weight: 700; color: #3e4462; text-align: center; }
+
+.bulk-buttons { 
+    display: flex; 
+    gap: 12px; 
+    width: 100%;
+}
+
+.btn-bulk-cancel {
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: rgba(255, 255, 255, 0.9);
+    color: #555;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 13px;
+}
+.btn-bulk-cancel:hover { background: #f1f3f5; }
+
+.btn-bulk-delete {
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 14px;
+    border: none;
+    background: #ff7675;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 118, 117, 0.2);
+    transition: background 0.2s ease, transform 0.2s ease;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 13px;
+}
+.btn-bulk-delete:hover { background: #e85f5e; transform: translateY(-1px); }
+
+/* OVERLAY FOR DIALOG MODALS */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 35px;
+    width: 440px;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+}
+
+.modal-title { text-align: center; font-size: 19px; font-weight: 700; color: #3e4462; margin-bottom: 25px; }
+.input-group { margin-bottom: 20px; display: flex; flex-direction: column; }
+.input-group label { font-size: 13px; font-weight: 600; color: #4a5073; margin-bottom: 8px; margin-left: 4px; }
+
+.modal-content input, .modal-content textarea {
+    width: 100%; padding: 13px 16px; border-radius: 14px; border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.85); font-size: 14px; color: #333; outline: none;
+    transition: border 0.25s ease, box-shadow 0.25s ease; box-sizing: border-box;
+}
+.modal-content input:focus, .modal-content textarea:focus { border-color: #5d5be5; box-shadow: 0 0 0 3px rgba(93, 91, 229, 0.12); }
+.modal-content textarea { height: 130px; resize: none; }
+
+/* MODAL ACTIONS ALIGNED AND EQUALIZED (FOR FORM MODAL) */
+.modal-actions { 
+    display: flex; 
+    gap: 15px; 
+    margin-top: 10px; 
+    width: 100%;
+}
+
+.btn-cancel {
+    flex: 1;
+    padding: 13px 0; 
+    border-radius: 14px; 
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: rgba(255, 255, 255, 0.8); 
+    color: #555; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: background 0.2s ease;
+    text-align: center;
+    box-sizing: border-box;
+}
+.btn-cancel:hover { background: #f1f3f5; }
+
+.btn-save {
+    flex: 1;
+    padding: 13px 0; 
+    border-radius: 14px; 
+    border: none; 
+    background: #5d5be5; 
+    color: white;
+    font-weight: 700; 
+    cursor: pointer; 
+    box-shadow: 0 4px 12px rgba(93, 91, 229, 0.2);
+    transition: background 0.2s ease, transform 0.2s ease;
+    text-align: center;
+    box-sizing: border-box;
+}
+.btn-save:hover { background: #4a48cc; transform: translateY(-1px); }
+
+/* SYSTEM DANGER AND DELETE ACTIONS (FOR DELETE CONFIRMATION MODAL) */
+.confirmation-content { width: 440px; padding: 35px; text-align: center; }
+.confirmation-content .modal-title { margin-bottom: 10px; }
+.warning-icon-wrapper { color: #ff7675; font-size: 38px; margin-bottom: 15px; }
+.confirmation-text { font-size: 14px; color: #6c757d; margin: 0 0 25px 0; line-height: 1.5; }
+
+.btn-delete-cancel {
+    flex: 1;
+    padding: 13px 0;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: rgba(255, 255, 255, 0.8);
+    color: #555;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    text-align: center;
+    box-sizing: border-box;
+}
+.btn-delete-cancel:hover { background: #f1f3f5; }
+
+.btn-delete-confirm {
+    flex: 1;
+    padding: 13px 0; 
+    border-radius: 14px; 
+    border: none; 
+    background: #ff7675; 
+    color: white;
+    font-weight: 700; 
+    cursor: pointer; 
+    box-shadow: 0 4px 12px rgba(255, 118, 117, 0.2);
+    transition: background 0.2s ease, transform 0.2s ease;
+    text-align: center;
+    box-sizing: border-box;
+}
+.btn-delete-confirm:hover { background: #e85f5e; transform: translateY(-1px); }
+
+/* FLOATING PRIMARY RADIAL ACTIONS BUTTONS */
+.floating-btn {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); 
+    border: 1px solid var(--glass-border); 
+    padding: 13px 30px; 
+    border-radius: 28px; 
+    font-size: 15px; 
+    font-weight: 600; 
+    color: var(--text-main); 
+    cursor: pointer; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.floating-btn:hover { transform: scale(1.05); }
+
+.no-notes-message {
+    grid-column: 1 / -1; text-align: center; color: #8fa0ba; padding: 40px 0; font-weight: 500; width: 100%;
+}
+
+/* --- Refined Dedicated Logout Modal Integration --- */
+#logoutModal.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(24, 24, 39, 0.4); 
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#logoutModal.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Glassmorphic Rounded Core Card container sync */
+#logoutModal .modal-box {
+    background: rgba(255, 255, 255, 0.85); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 35px;
+    width: 440px;
+    max-width: 90%;
+    border-radius: 28px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#logoutModal.modal-overlay.active .modal-box {
+    transform: scale(1);
+}
+
+#logoutModal h3 {
+    font-size: 20px; 
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+/* Flex Container for uniform equal-width distribution */
+#logoutModal .modal-actions {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 15px !important;
+    margin-top: 10px !important;
+    width: 100% !important;
+}
+
+/* Base style mapping to make BOTH cancel and log out identical structural shapes */
+#logoutModal #cancelLogoutBtn,
+#logoutModal #confirmLogoutBtn {
+    flex: 1 !important;            /* Forces equal width distribution */
+    padding: 13px 20px !important;  /* Perfectly safe internal text spacer padding */
+    border-radius: 14px !important; /* Uniform smooth corner look */
+    font-size: 14px !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    display: inline-block !important;
+    transition: background 0.2s ease, transform 0.2s ease !important;
+}
+
+/* Specific Clean Cancel Button Aesthetics */
+#logoutModal #cancelLogoutBtn {
+    border: 1px solid var(--glass-border) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    color: var(--text-main) !important;
+    font-weight: 600 !important;
+}
+
+#logoutModal #cancelLogoutBtn:hover {
+    background: white !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Specific Coral Red Log Out Confirmation Aesthetics */
+#logoutModal #confirmLogoutBtn {
+    border: none !important;
+    background: #ff7675 !important; /* Matches note page variant exactly */
+    color: white !important;
+    font-weight: 700 !important;
+}
+
+#logoutModal #confirmLogoutBtn:hover {
+    background: #e85f5e !important;
+    transform: translateY(-1px) !important;
+}

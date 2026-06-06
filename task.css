@@ -139,61 +139,36 @@ body.dashboard-body {
 .main-content {
     margin-left: 250px;
     flex-grow: 1;
-    padding: 40px;
     display: flex;
     flex-direction: column;
+    
+    /* Forces the main layout container to fill up the entire browser viewport first */
     min-height: 100vh;
-}
-
-.top-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 40px;
-}
-
-.welcome-header h1 {
-    font-size: 26px;
-    font-weight: 700;
-    margin-bottom: 4px;
-}
-
-.welcome-header p {
-    color: var(--text-muted);
-    font-size: 14px;
-}
-
-.search-bar {
+    
+    padding: 40px 40px 0 40px;
     position: relative;
 }
 
-.search-bar input {
-    background: rgba(255, 255, 255, 0.45);
-    border: 1px solid var(--glass-border);
-    padding: 10px 16px 10px 40px;
-    border-radius: 20px;
-    width: 260px;
-    font-size: 14px;
-    color: var(--text-main);
-    outline: none;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
-}
+.top-nav { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+        .welcome-header h1 { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+        .welcome-header p { color: var(--text-muted); font-size: 14px; }
+        .header-right { display: flex; align-items: center; gap: 20px; }
 
-.search-bar input:focus {
-    background: rgba(255, 255, 255, 0.75);
-    width: 300px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-}
-
-.search-bar i {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted);
-    font-size: 14px;
-}
+.search-bar { position: relative; }
+        .search-bar input {
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--glass-border);
+            padding: 10px 16px 10px 40px;
+            border-radius: 20px;
+            width: 260px;
+            font-size: 14px;
+            color: var(--text-main);
+            outline: none;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        .search-bar input:focus { background: rgba(255, 255, 255, 0.75); width: 300px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); }
+        .search-bar i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 14px; }
 
 /* --- Core Dynamic Tasks Grid Matrix Layout --- */
 .tasks-workspace {
@@ -203,6 +178,7 @@ body.dashboard-body {
     align-items: stretch; 
     width: 100%;
     position: relative;
+    min-height: 82vh;
 }
 
 .tasks-grid {
@@ -382,26 +358,20 @@ body.dashboard-body {
     width: 100%;
 } */
 
-.action-trigger-zone {
-    position: absolute;
-    bottom: 95px;    /* Sits neatly right above your full-width footer */
-    right: 40px;     /* Aligns perfectly with the right padding of your website */
-    z-index: 10;
-}
 
 .btn-add-task {
-    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-    border: 1px solid var(--glass-border);
-    padding: 13px 30px;
-    border-radius: 28px;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-main);
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); 
+    border: 1px solid var(--glass-border); 
+    padding: 13px 30px; 
+    border-radius: 28px; 
+    font-size: 15px; 
+    font-weight: 600; 
+    color: var(--text-main); 
+    cursor: pointer; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -436,30 +406,121 @@ body.dashboard-body {
     animation: pulseAlert 2s infinite ease-in-out;
 }
 
-/* Optional soft pulse effect for the alert state */
+
 @keyframes pulseAlert {
     0% { opacity: 0.8; }
     50% { opacity: 1; }
     100% { opacity: 0.8; }
 }
 
-.dashboard-footer {
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    padding: 14px 0;         
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
-    width: 100%;             
-    margin-top: 20px;   
+/* --- Footer Area Sheet Structure --- */
+.ss-footer {
+    background: rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(16px); 
+    -webkit-backdrop-filter: blur(16px);
+    color: var(--text-main);
+    width: calc(100% + 80px); 
+    margin-left: -40px;        
+    margin-top: auto;         
+    padding: 3rem 40px 1.5rem 40px; 
+    border-top: 1px solid var(--glass-border);
+    box-shadow: 0 -8px 32px rgba(31, 38, 135, 0.05);
+    box-sizing: border-box;
 }
 
-.dashboard-footer p {
-    font-size: 14px;
+/* Ensure link items clean up default space and margins */
+.ss-footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;  
+}
+
+.ss-footer-links a {
+    text-decoration: none; 
+}
+
+.ss-footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Light Theme Font Typography overrides */
+.ss-footer-brand h2 {
+    color: #4c49d8; /* Matches your sidebar ScholarSync logo brand color */
+    font-weight: 700;
+}
+
+.ss-footer-heading {
     color: var(--text-main);
-    font-style: italic;
+    font-weight: 600;
+}
+
+.ss-footer-brand p,
+.ss-footer-links a,
+.ss-footer-contact p,
+.ss-footer-contact a {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Modern clean accent link text hover state styling */
+.ss-footer-links a:hover,
+.ss-footer-contact a:hover {
+    color: #5e5ce6;
+    transform: translateX(4px);
+    text-shadow: 0 0 8px rgba(94, 92, 230, 0.2);
+}
+
+.ss-footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06); /* Clean light separator line */
+    text-align: center;
+}
+
+.ss-footer-bottom p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* --- RESPONSIVE DESIGN ADJUSTMENTS (Updated for Mobile margins) --- */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 70px; 
+        padding: 20px 20px 0 20px; /* Adjusts for narrow mobile viewport layout rules */
+    }
+
+    .ss-footer {
+        width: calc(100% + 40px); /* Offsets the narrower 20px mobile padding layout rules */
+        margin-left: -20px;
+        padding: 2.5rem 20px 1.5rem 20px;
+    }
+
+    .ss-footer-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .ss-footer-brand, 
+    .ss-footer-links, 
+    .ss-footer-contact {
+        text-align: center;
+    }
+
+    .ss-footer-brand p {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .ss-footer-links a:hover {
+        transform: translateY(-2px);
+    }
 }
 
 /* --- Glassmorphic Modal Interaction System Architecture --- */
@@ -629,6 +690,39 @@ body.dashboard-body {
     transform: translateY(-1px);
 }
 
+/* --- Refined Dedicated Logout Modal Integration --- */
+#logoutModal.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); /* Soft dark tint overlay back drop */
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    display: flex; /* Kept active for centering, visibility handled via opacity/pointer-events */
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#logoutModal.modal-overlay.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#logoutModal .modal-box {
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#logoutModal.modal-overlay.is-active .modal-box {
+    transform: scale(1);
+}
+
 /* --- Structural CSS Animations Keyframes --- */
 @keyframes taskEntry {
     from { opacity: 0; transform: translateY(12px); }
@@ -639,6 +733,7 @@ body.dashboard-body {
 @media (max-width: 768px) {
     .sidebar {
         width: 70px;
+        height: 100%;
     }
     .sidebar .logo span, .sidebar nav a span {
         display: none;
@@ -654,4 +749,109 @@ body.dashboard-body {
         bottom: 85px;
     }
     .dashboard-footer { max-width: 100%; }
+
+    .sidebar nav a::after {
+        content: attr(title); /* Grabs text values safely from the HTML title tags */
+        position: absolute;
+        left: 65px; /* Safely clears the slim sidebar boundaries */
+        top: 50%;
+        transform: translateY(-50%) translateX(-10px);
+        background: #181827; /* Dark glass contrast hue styling */
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 8px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        z-index: 99999;
+    }
+
+    /* Small pointer indicator triangle for the tooltip box */
+    .sidebar nav a::before {
+        content: '';
+        position: absolute;
+        left: 59px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-width: 4px 6px 4px 0;
+        border-style: solid;
+        border-color: transparent #181827 transparent transparent;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        z-index: 99999;
+    }
+
+    /* Hover State Active Trigger Animations */
+    .sidebar nav a:hover::after {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+
+    .sidebar nav a:hover::before {
+        opacity: 1;
+    }
+}
+
+/* --- Refined Dedicated Logout Modal System --- */
+.logout-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.2); /* Same explicit dark overlay backdrop */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;             /* Keep flex active layout rendering */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; 
+    
+    /* Use visibility toggles to ensure transitions render flawlessly */
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.25s ease-out, visibility 0.25s ease-out;
+}
+
+/* Class added via JS to activate smooth entry matching the notes module */
+.logout-overlay.is-active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.logout-card-container {
+    width: 340px;
+    background: rgba(255, 255, 255, 0.25); /* Replicates the glass-card profile overlay density */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 22px;
+    text-align: center;
+    padding: 25px !important;
+    
+    /* Perfect cubic-bezier bounce transition mirroring the notes animation scale */
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.logout-overlay.is-active .logout-card-container {
+    transform: scale(1);
+}
+
+.logout-card-container h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+.logout-card-container p {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 24px;
 }

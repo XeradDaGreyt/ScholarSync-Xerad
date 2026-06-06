@@ -4,51 +4,583 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScholarSync | Notes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <section>
-        <body class="dashboard-body">
-            <div class="app-container">
-                <aside class="sidebar">
-                    <div class="logo">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>ScholarSync</span>
-                    </div>
-                    <nav>
-                        <a href="dashboard.html" ><i class="fas fa-th-large"></i> Dashboard</a>
-                        <a href="task.html" ><i class="fas fa-check-double"></i> Tasks</a>
-                        <a href="#" class="active"><i class="fas fa-sticky-note"></i> Notes</a>
-                        <a href="sched.html"><i class="fas fa-calendar-alt"></i> Schedule</a>
-                        <a href="timer.html"><i class="fas fa-stopwatch"></i> Timer</a>
-                        <div class="nav-divider"></div>
-                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    </nav>
-                </aside>
 
-                <main class="main-content">
-                    <header class="top-nav">
-                        <div class="welcome-header">
-                            <h1>Welcome back, Darex! 👋</h1>
-                            <p>Ready to achieve your goals today?</p>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="notes.css">
+    <link rel="stylesheet" href="footer.css">
+</head>
+
+<body class="dashboard-body">
+
+<div class="app-container">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>ScholarSync</span>
+        </div>
+
+        <nav>
+            <a href="dashboard.html" title="Dashboard"><i class="fas fa-th-large"></i> <span>Dashboard</span></a>
+            <a href="task.html" title="Tasks"><i class="fas fa-check-double"></i> <span>Tasks</span></a>
+            <a href="#" title="Notes" class="active"><i class="fas fa-sticky-note"></i> <span>Notes</span></a>    
+            <a href="sched.html" title="Schedule"><i class="fas fa-calendar-alt"></i> <span>Schedule</span></a>
+            <div class="nav-divider"></div>
+            <a href="#" id="logoutBtn" title="Logout"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>    
+        </nav>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="top-nav">
+            <div class="welcome-header">
+                <h1><i class="fa-solid fa-note-sticky"></i> My Notes</h1>
+                <p>Organize your thoughts easily</p>
+                
+                <div class="controls-row-left">
+                    <div class="view-dropdown-container">
+                        <i class="fas fa-filter dropdown-icon"></i>
+                        <select id="viewFilterSelect" onchange="changeViewMode()">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="grouped">Group by Date</option>
+                        </select>
+                    </div>
+
+                    <button class="select-toggle-btn" id="selectToggleBtn" onclick="toggleSelectMode()">
+                        <i class="fas fa-tasks"></i> Select Notes
+                    </button>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search notes...">
+                </div>
+                <button class="floating-btn" id="mainFloatingBtn" onclick="openModal(false)"> 
+                    <i class="fas fa-plus"></i> New Note
+                </button>
+            </div>
+        </header>
+
+        <div id="notesWorkspace">
+            <div class="notes-grid" id="notesContainer"></div>
+        </div>
+
+        <footer class="ss-footer">
+                <button class="glass-back-to-top" id="backToTopBtn" title="Back to Top">
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+
+                <div class="ss-footer-bg-glow"></div>
+                
+                <div class="ss-footer-container">
+                    <div class="ss-footer-column brand-column">
+                        <div class="footer-logo">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>ScholarSync</span>
                         </div>
-                        <div class="header-right">
-                            <div class="search-bar">
-                                <i class="fas fa-search"></i>
-                                <input type="text" placeholder="Search your desk...">
+                        <p class="brand-desc">ScholarSync helps students manage tasks, schedules, notes, and productivity in one organized workspace.</p>
+                        <span class="brand-tagline">Study smarter. Stay organized.</span>
+                        
+                        <div class="footer-newsletter">
+                            <h4>Stay Updated</h4>
+                            <div class="newsletter-field">
+                                <input type="email" placeholder="Enter student email..." aria-label="Newsletter email">
+                                <button type="button" title="Subscribe"><i class="fas fa-paper-plane"></i></button>
                             </div>
                         </div>
-                    </header>
+                    </div>
 
-                    
+                    <div class="ss-footer-column links-column">
+                        <h3 class="ss-footer-heading">Quick Links</h3>
+                        <ul class="footer-nav-list">
+                            <li><a href="dashboard.html" class="footer-link"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                            <li><a href="task.html" class="footer-link"><i class="fas fa-check-double"></i> Tasks</a></li>
+                            <li><a href="#" class="footer-link active"><i class="fas fa-sticky-note"></i> Notes</a></li>
+                            <li><a href="sched.html" class="footer-link"><i class="fas fa-calendar-alt"></i> Schedule</a></li> 
+                        </ul>
+                    </div>
 
-                    <footer class="dashboard-footer">
-                        <p>"Small steps every day lead to big results."</p>
-                    </footer>
-                </main>
+                    <div class="ss-footer-column features-column">
+                        <h3 class="ss-footer-heading">Features</h3>
+                        <ul class="footer-feature-list">
+                            <li><i class="fa-solid fa-wand-magic-sparkles"></i> Smart Task Tracking</li>
+                            <li><i class="fa-regular fa-clock"></i> Weekly Scheduling</li>
+                            <li><i class="fa-solid fa-chart-line"></i> Analytics Progress</li>
+                            <li><i class="fa-solid fa-cloud-arrow-down"></i> Local Cloud Storage</li>
+                            <li><i class="fa-solid fa-user-graduate"></i> Student First UI</li>
+                            <li><i class="fa-solid fa-mobile-screen-button"></i> Fully Responsive</li>
+                        </ul>
+                    </div>
+
+                    <div class="ss-footer-column contact-column">
+                        <h3 class="ss-footer-heading">Connect With Us</h3>
+                        <div class="footer-contact-item">
+                            <i class="far fa-envelope"></i>
+                            <a href="mailto:scholarsync@gmail.com">scholarsync@gmail.com</a>
+                        </div>
+                        <p class="location-stamp"><i class="fas fa-map-marker-alt"></i> Philippines</p>
+                        
+                        <div class="footer-social-wrapper">
+                            <a href="#" class="social-icon" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-icon" title="Facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon" title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ss-footer-bottom">
+                    <div class="bottom-bar-left">
+                        <p>&copy; 2026 ScholarSync. All Rights Reserved.</p>
+                    </div>
+                    <div class="bottom-bar-center">
+                        <p class="dev-credit">Designed for modern student productivity.</p>
+                    </div>
+                    <div class="bottom-bar-right">
+                        <span class="version-badge">Version 1.0</span>
+                    </div>
+                </div>
+            </footer>
+
+    </main>
+</div>
+
+<div class="modal" id="viewNoteModal" onclick="closeViewModalOutside(event)">
+    <div class="view-modal-content">
+        <h2 class="modal-title" id="viewModalTitle" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Note Title</h2>
+        <div class="view-modal-body" id="viewModalContent">
             </div>
-    </section>
+        <div class="view-modal-footer">
+            <span class="note-date" id="viewModalDate" style="color: #666; font-size: 0.85rem;">
+                <i class="far fa-calendar-alt"></i> Date Placeholder
+            </span>
+            <button onclick="closeViewModal()" class="btn-cancel" style="margin: 0;">Close</button>
+        </div>
+    </div>
+</div>
+
+<div class="bulk-action-bar" id="bulkActionBar">
+    <div class="bulk-info">
+        <span id="selectedCount">0 items selected</span>
+    </div>
+    <div class="bulk-buttons">
+        <button onclick="toggleSelectMode()" class="btn-bulk-cancel">Cancel</button>
+        <button onclick="openBulkDeleteModal()" class="btn-bulk-delete">Delete Selected</button>
+    </div>
+</div>
+
+<div class="modal" id="noteModal">
+    <div class="modal-content">
+        <h2 class="modal-title" id="modalTitle">Create New Note</h2>
+
+        <div class="input-group">
+            <label for="noteTitle">Note Title</label>
+            <input type="text" id="noteTitle" placeholder="e.g., Biology Chapter 4 Summary">
+        </div>
+
+        <div class="input-group">
+            <label for="noteContent">Content</label>
+            <textarea id="noteContent" placeholder="Write your thoughts here..."></textarea>
+        </div>
+
+        <div class="modal-actions">
+            <button onclick="closeModal()" class="btn-cancel">Cancel</button>
+            <button onclick="handleSave()" class="btn-save" id="saveButton">Save Note</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="deleteModal">
+    <div class="modal-content confirmation-content">
+        <div class="warning-icon-wrapper">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h2 class="modal-title" id="deleteModalTitle">Delete Note</h2>
+        <p class="confirmation-text" id="deleteModalText">Are you sure you want to delete this note?</p>
+        
+        <div class="modal-actions">
+            <button onclick="closeDeleteModal()" class="btn-delete-cancel">Cancel</button>
+            <button onclick="executeDeletion()" class="btn-delete-confirm">Delete</button>
+        </div>
+    </div>
+</div>
+
+<div id="logoutModal" class="modal">
+    <div class="modal-content confirmation-content">
+        <div class="warning-icon-wrapper">
+            <i class="fas fa-sign-out-alt"></i>
+        </div>
+        <h3>Log Out</h3>
+        <p>
+            Are you sure you want to log out of your account?
+        </p>
+        <div class="modal-actions">
+            <button id="cancelLogoutBtn" class="btn-delete-cancel">Cancel</button>
+            <button id="confirmLogoutBtn" class="btn-delete-confirm">Log Out</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function getCurrentUser() {
+    const raw = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+    return raw ? JSON.parse(raw) : null;
+}
+
+const currentUser = getCurrentUser();
+const notesKey = currentUser ? `notes_${currentUser.username}` : 'notes';
+const viewModeKey = currentUser ? `viewMode_${currentUser.username}` : 'viewMode';
+
+if (!currentUser) {
+    window.location.href = 'index.html';
+}
+
+let notes = currentUser ? (JSON.parse(localStorage.getItem(notesKey)) || []) : (JSON.parse(localStorage.getItem('notes')) || []);
+
+/* --- FIXED: Unified Logout Event Engine Mapping --- */
+const logoutBtn = document.getElementById('logoutBtn');
+const logoutModal = document.getElementById('logoutModal');
+const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
+const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+
+if (logoutBtn && logoutModal) {
+    logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        logoutModal.classList.add('is-active');
+        logoutModal.style.display = 'flex';
+    });
+
+    if (cancelLogoutBtn) {
+        cancelLogoutBtn.addEventListener('click', () => {
+            logoutModal.classList.remove('is-active');
+            logoutModal.style.display = 'none';
+        });
+    }
+
+    logoutModal.addEventListener('click', (e) => {
+        if (e.target === logoutModal) {
+            logoutModal.classList.remove('is-active');
+            logoutModal.style.display = 'none';
+        }
+    });
+
+    if (confirmLogoutBtn) {
+        confirmLogoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        });
+    }
+}
+
+let editIndex = null; 
+let deleteTargetIndex = null; 
+
+let isSelectMode = false;
+let selectedIndices = [];
+
+let currentViewMode = localStorage.getItem(viewModeKey) || "newest"; 
+document.getElementById("viewFilterSelect").value = currentViewMode;
+
+function saveNotes() {
+    localStorage.setItem(notesKey, JSON.stringify(notes));
+}
+
+function changeViewMode() {
+    currentViewMode = document.getElementById("viewFilterSelect").value;
+    localStorage.setItem(viewModeKey, currentViewMode);
+    renderNotes();
+}
+
+function parseNoteDate(dateStr) {
+    if (!dateStr) return new Date(0);
+    return new Date(Date.parse(dateStr));
+}
+
+function getDateCategory(dateStr) {
+    if (!dateStr) return "Older Notes";
+    
+    const noteDate = parseNoteDate(dateStr);
+    const today = new Date();
+    
+    const noteMidnight = new Date(noteDate.getFullYear(), noteDate.getMonth(), noteDate.getDate());
+    const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    
+    const diffTime = todayMidnight - noteMidnight;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return "Today";
+    if (diffDays === 1) return "Yesterday";
+    if (diffDays < 7) return "This Week";
+    return "Older Notes";
+}
+
+function generateNoteHTML(note) {
+    const actualIndex = notes.indexOf(note);
+    const isChecked = selectedIndices.includes(actualIndex);
+
+    return `
+        <div class="note-card ${isSelectMode ? 'selectable' : ''} ${isChecked ? 'selected' : ''}" 
+             onclick="handleCardClick(event, ${actualIndex})">
+            
+            <div class="card-checkbox-wrapper ${isSelectMode ? 'visible' : ''}">
+                <input type="checkbox" id="check-${actualIndex}" ${isChecked ? 'checked' : ''} 
+                       onclick="event.stopPropagation(); handleCheckboxToggle(${actualIndex})">
+                <label for="check-${actualIndex}" onclick="event.stopPropagation();"></label>
+            </div>
+
+            <div class="note-content-wrapper">
+                <div class="note-header">
+                    <h3>${note.title}</h3>
+                    <span class="priority-badge">Note</span>
+                </div>
+                <p class="note-body">${note.content}</p>
+            </div>
+
+            <div class="note-footer-row">
+                <span class="note-date">
+                    <i class="far fa-calendar-alt"></i> ${note.date || 'No Date'}
+                </span>
+                <div class="note-actions" ${isSelectMode ? 'style="display: none;"' : ''}>
+                    <button class="action-btn edit-btn" onclick="event.stopPropagation(); openModal(true, ${actualIndex})" title="Edit Note">
+                        <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    <button class="action-btn delete-btn" onclick="event.stopPropagation(); openDeleteModal(${actualIndex})" title="Delete Note">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function renderNotes() {
+    const workspace = document.getElementById("notesWorkspace");
+    const searchVal = document.getElementById("searchInput").value.toLowerCase();
+    
+    let filteredNotes = notes.filter(n =>
+        n.title.toLowerCase().includes(searchVal) ||
+        n.content.toLowerCase().includes(searchVal)
+    );
+
+    if (filteredNotes.length === 0) {
+        workspace.innerHTML = `<div class="notes-grid"><p class="no-notes-message">No notes found matching your criteria.</p></div>`;
+        updateBulkActionBar();
+        return;
+    }
+
+    if (currentViewMode === "newest") {
+        filteredNotes.sort((a, b) => parseNoteDate(b.date) - parseNoteDate(a.date));
+        workspace.innerHTML = `<div class="notes-grid" id="notesContainer"></div>`;
+        const container = document.getElementById("notesContainer");
+        filteredNotes.forEach(note => { container.innerHTML += generateNoteHTML(note); });
+        
+    } else if (currentViewMode === "oldest") {
+        filteredNotes.sort((a, b) => parseNoteDate(a.date) - parseNoteDate(b.date));
+        workspace.innerHTML = `<div class="notes-grid" id="notesContainer"></div>`;
+        const container = document.getElementById("notesContainer");
+        filteredNotes.forEach(note => { container.innerHTML += generateNoteHTML(note); });
+        
+    } else if (currentViewMode === "grouped") {
+        filteredNotes.sort((a, b) => parseNoteDate(b.date) - parseNoteDate(a.date));
+        
+        const groups = { "Today": [], "Yesterday": [], "This Week": [], "Older Notes": [] };
+        filteredNotes.forEach(note => {
+            const cat = getDateCategory(note.date);
+            groups[cat].push(note);
+        });
+
+        workspace.innerHTML = ""; 
+        
+        ["Today", "Yesterday", "This Week", "Older Notes"].forEach(categoryTitle => {
+            if (groups[categoryTitle].length > 0) {
+                let sectionHTML = `
+                    <div class="category-section">
+                        <h2 class="category-section-title">${categoryTitle} <span class="category-count">(${groups[categoryTitle].length})</span></h2>
+                        <div class="notes-grid">
+                `;
+                groups[categoryTitle].forEach(note => { sectionHTML += generateNoteHTML(note); });
+                sectionHTML += `</div></div>`;
+                workspace.innerHTML += sectionHTML;
+            }
+        });
+    }
+
+    updateBulkActionBar();
+}
+
+function toggleSelectMode() {
+    isSelectMode = !isSelectMode;
+    selectedIndices = []; 
+
+    const toggleBtn = document.getElementById("selectToggleBtn");
+    const mainFloatingBtn = document.getElementById("mainFloatingBtn");
+
+    if (isSelectMode) {
+        toggleBtn.innerHTML = `<i class="fas fa-times"></i> Exit Selection`;
+        toggleBtn.classList.add("active");
+        mainFloatingBtn.style.transform = "scale(0)"; 
+    } else {
+        toggleBtn.innerHTML = `<i class="fas fa-tasks"></i> Select Notes`;
+        toggleBtn.classList.remove("active");
+        mainFloatingBtn.style.transform = "scale(1)";
+    }
+
+    renderNotes();
+}
+
+function handleCardClick(event, index) {
+    if (isSelectMode) {
+        handleCheckboxToggle(index);
+    } else {
+        openViewModal(index);
+    }
+}
+
+function handleCheckboxToggle(index) {
+    const position = selectedIndices.indexOf(index);
+    if (position > -1) {
+        selectedIndices.splice(position, 1);
+    } else {
+        selectedIndices.push(index);
+    }
+    renderNotes();
+}
+
+function updateBulkActionBar() {
+    const bar = document.getElementById("bulkActionBar");
+    const countSpan = document.getElementById("selectedCount");
+
+    if (isSelectMode && selectedIndices.length > 0) {
+        countSpan.innerText = `${selectedIndices.length} note${selectedIndices.length > 1 ? 's' : ''} selected`;
+        bar.classList.add("show");
+    } else {
+        bar.classList.remove("show");
+    }
+}
+
+function openViewModal(index) {
+    const targetNote = notes[index];
+    document.getElementById("viewModalTitle").innerText = targetNote.title;
+    document.getElementById("viewModalContent").innerText = targetNote.content;
+    document.getElementById("viewModalDate").innerHTML = `<i class="far fa-calendar-alt"></i> ${targetNote.date || 'No Date'}`;
+    
+    document.getElementById("viewNoteModal").classList.add("is-active");
+    document.getElementById("viewNoteModal").style.display = "flex";
+}
+
+function closeViewModal() {
+    document.getElementById("viewNoteModal").classList.remove("is-active");
+    document.getElementById("viewNoteModal").style.display = "none";
+}
+
+function closeViewModalOutside(event) {
+    const modalOverlay = document.getElementById("viewNoteModal");
+    if (event.target === modalOverlay) {
+        closeViewModal();
+    }
+}
+
+function openModal(isEdit = false, index = null) {
+    const modalTitle = document.getElementById("modalTitle");
+    const saveButton = document.getElementById("saveButton");
+    
+    if (isEdit && index !== null) {
+        editIndex = index;
+        modalTitle.innerText = "Edit Note Specified";
+        saveButton.innerText = "Save Changes";
+        
+        document.getElementById("noteTitle").value = notes[index].title;
+        document.getElementById("noteContent").value = notes[index].content;
+    } else {
+        editIndex = null;
+        modalTitle.innerText = "Create New Note";
+        saveButton.innerText = "Save Note";
+        
+        document.getElementById("noteTitle").value = "";
+        document.getElementById("noteContent").value = "";
+    }
+    
+    document.getElementById("noteModal").classList.add("is-active");
+    document.getElementById("noteModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("noteModal").classList.remove("is-active");
+    document.getElementById("noteModal").style.display = "none";
+    editIndex = null;
+}
+
+function handleSave() {
+    let title = document.getElementById("noteTitle").value.trim();
+    let content = document.getElementById("noteContent").value.trim();
+
+    if (!title || !content) return alert("Please fill in all fields.");
+
+    const options = { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+    const timestamp = new Date().toLocaleDateString('en-US', options);
+
+    if (editIndex !== null) {
+        const originalDate = notes[editIndex].date || timestamp;
+        notes[editIndex] = { title, content, date: originalDate };
+    } else {
+        notes.unshift({ title, content, date: timestamp });
+    }
+
+    saveNotes();
+    renderNotes();
+    closeModal();
+}
+
+function openDeleteModal(index) {
+    deleteTargetIndex = index;
+    document.getElementById("deleteModalTitle").innerText = "Delete Note";
+    document.getElementById("deleteModalText").innerText = "Are you sure you want to delete this note?";
+    document.getElementById("deleteModal").classList.add("is-active");
+    document.getElementById("deleteModal").style.display = "flex";
+}
+
+function openBulkDeleteModal() {
+    deleteTargetIndex = -1; 
+    document.getElementById("deleteModalTitle").innerText = "Delete Selected Notes";
+    document.getElementById("deleteModalText").innerText = `Are you sure you want to permanently delete these ${selectedIndices.length} notes?`;
+    document.getElementById("deleteModal").classList.add("is-active");
+    document.getElementById("deleteModal").style.display = "flex";
+}
+
+function closeDeleteModal() {
+    document.getElementById("deleteModal").classList.remove("is-active");
+    document.getElementById("deleteModal").style.display = "none";
+}
+
+function executeDeletion() {
+    if (deleteTargetIndex === -1) {
+        selectedIndices.sort((a, b) => b - a);
+        selectedIndices.forEach(idx => { notes.splice(idx, 1); });
+        toggleSelectMode(); 
+    } else if (deleteTargetIndex !== null) {
+        notes.splice(deleteTargetIndex, 1);
+    }
+    
+    saveNotes();
+    renderNotes();
+    closeDeleteModal();
+}
+
+document.getElementById("searchInput").addEventListener("input", function () {
+    renderNotes();
+});
+
+renderNotes();
+</script>
+
+<script src="footer.js"></script>
+
 </body>
 </html>

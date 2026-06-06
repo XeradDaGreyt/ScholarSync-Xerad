@@ -31,7 +31,7 @@
                 <main class="main-content">
                     <header class="top-nav">
                         <div class="welcome-header">
-                            <h1>Welcome back, Darex! 👋</h1>
+                            <h1>Welcome back, <span id="welcomeName">Darex</span>! 👋</h1>
                             <p>Ready to achieve your goals today?</p>
                         </div>
                         <div class="header-right">
@@ -50,5 +50,30 @@
                 </main>
             </div>
     </section>
+    <script>
+        function getCurrentUser() {
+            const raw = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+            return raw ? JSON.parse(raw) : null;
+        }
+
+        const currentUser = getCurrentUser();
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        } else {
+            const welcomeEl = document.getElementById('welcomeName');
+            if (welcomeEl) welcomeEl.textContent = currentUser.firstName || currentUser.username || 'Friend';
+        }
+
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('isLoggedIn');
+                sessionStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            });
+        }
+    </script>
 </body>
 </html>

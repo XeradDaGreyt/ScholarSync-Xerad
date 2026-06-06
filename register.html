@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register | ScholarSync</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="login.css" />
     <style>
         .login-box {
             height: 620px; 
@@ -48,19 +48,22 @@
                 </div>
 
                 <div class="input-box">
-                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <span class="icon"><ion-icon name="eye-off" id="toggleRegPass" style="cursor: pointer;"></ion-icon></span>
                     <input type="password" id="regPass" required />
                     <label>Password</label>
                 </div>
 
                 <div class="input-box">
-                    <span class="icon"><ion-icon name="shield-checkmark"></ion-icon></span>
+                    <span class="icon"><ion-icon name="eye-off" id="toggleConfirmPass" style="cursor: pointer;"></ion-icon></span>
                     <input type="password" id="confirmPass" required />
                     <label>Confirm Password</label>
                 </div>
 
                 <div class="remember-forgot">
-                    <label><input type="checkbox" id="terms" required /> I agree to the terms</label>
+                    <label>
+                        <input type="checkbox" id="terms" required /> 
+                        I agree to the <a href="#" id="viewTerms" style="font-weight: 600; text-decoration: underline;">terms</a>
+                    </label>
                 </div>
 
                 <button type="submit">Register</button>
@@ -71,9 +74,67 @@
             </form>
         </div>
     </section>
+    <!-- Terms and Conditions Dialog Box -->
+        <dialog id="termsModal">
+        <div class="modal-header">
+            <h3>Terms and Policies</h3>
+            <button type="button" id="closeTerms">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>By creating an account and using ScholarSync, you agree to follow the rules, policies, and guidelines of the platform. ScholarSync is designed to support students in managing tasks, improving productivity, and organizing academic activities responsibly. Users are expected to provide accurate information during registration and to use the platform in a respectful and lawful manner. Any misuse of the website, including unauthorized access, sharing harmful content, cheating, or violating academic integrity, may result in account suspension or removal.</p>
+            <p>ScholarSync values the privacy and security of its users. Personal information such as names, email addresses, usernames, and passwords will only be collected for account management and website functionality. User data will not be sold or shared with third parties without permission, except when required by law. While ScholarSync takes reasonable steps to protect user information, users are also responsible for keeping their account credentials secure. By continuing to use the website, you acknowledge and accept these Terms and Policies and agree to any future updates or improvements made to the platform.</p>
+        </div>
+        </dialog>
 
     <!-- JavaScript for Registration Logic -->
     <script>
+
+        // --- TERMS DIALOG LOGIC ---
+            const termsModal = document.getElementById('termsModal');
+            const viewTermsLink = document.getElementById('viewTerms');
+            const closeTermsBtn = document.getElementById('closeTerms');
+
+            // Open dialog when clicking the "terms" link
+            viewTermsLink.addEventListener('click', (e) => {
+                e.preventDefault(); // Stop page from scrolling back to top
+                termsModal.showModal(); // Standard browser method to show modal with backdrop
+            });
+
+            // Close dialog when clicking the 'X'
+            closeTermsBtn.addEventListener('click', () => {
+                termsModal.close();
+            });
+
+            // Optional: Close dialog if clicking outside the white box modal area
+            termsModal.addEventListener('click', (e) => {
+                const dialogDimensions = termsModal.getBoundingClientRect();
+                if (
+                    e.clientX < dialogDimensions.left ||
+                    e.clientX > dialogDimensions.right ||
+                    e.clientY < dialogDimensions.top ||
+                    e.clientY > dialogDimensions.bottom
+                ) {
+                    termsModal.close();
+                }
+            });
+
+        const regPassInput = document.getElementById('regPass');
+        const toggleRegPassIcon = document.getElementById('toggleRegPass');
+
+        toggleRegPassIcon.addEventListener('click', () => {
+            const type = regPassInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            regPassInput.setAttribute('type', type);
+            toggleRegPassIcon.setAttribute('name', type === 'password' ? 'eye-off' : 'eye');
+        });
+
+        const confirmPassInput = document.getElementById('confirmPass');
+        const toggleConfirmPassIcon = document.getElementById('toggleConfirmPass');
+
+        toggleConfirmPassIcon.addEventListener('click', () => {
+            const type = confirmPassInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPassInput.setAttribute('type', type);
+            toggleConfirmPassIcon.setAttribute('name', type === 'password' ? 'eye-off' : 'eye');
+        });
         const registerForm = document.getElementById('registerForm');
 
         registerForm.addEventListener('submit', (e) => {

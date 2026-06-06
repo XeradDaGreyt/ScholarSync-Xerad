@@ -1,0 +1,391 @@
+/* --- COLUMN 1: Brand Matrix --- */
+.ss-footer-container{
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr 1fr 1fr;
+}
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+.footer-logo i {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.brand-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+}
+
+.brand-tagline {
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--accent-cyan);
+    margin-bottom: 25px;
+}
+
+/* Newsletter Architecture Container */
+.footer-newsletter h4 {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+}
+
+.newsletter-field {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 4px 6px;
+    transition: all 0.3s ease;
+}
+
+.newsletter-field:focus-within {
+    border-color: rgba(0, 242, 254, 0.4);
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.newsletter-field input {
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 8px 10px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    width: 100%;
+}
+
+.newsletter-field input::placeholder {
+    color: var(--text-muted);
+}
+
+.newsletter-field button {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.newsletter-field button:hover {
+    background: var(--text-primary);
+    color: var(--accent-blue);
+    transform: scale(1.05);
+}
+
+/* --- COLUMN 2: Navigation Links Engine --- */
+.footer-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    width: fit-content;
+}
+
+.footer-link i {
+    font-size: 0.85rem;
+    width: 15px;
+    opacity: 0.6;
+    transition: transform 0.25s ease;
+}
+
+/* Smooth Underline Layer Mapping */
+.footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-cyan), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+}
+
+.footer-link:hover {
+    color: var(--text-primary);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.footer-link:hover i {
+    transform: translateX(3px);
+    opacity: 1;
+    color: var(--accent-cyan);
+}
+
+.footer-link:hover::after {
+    transform: scaleX(1);
+}
+
+.footer-link.active {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+.footer-link.active i {
+    opacity: 1;
+    color: var(--accent-cyan);
+}
+
+/* --- COLUMN 3: Features Matrix --- */
+.footer-feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.footer-feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-feature-list li i {
+    font-size: 0.9rem;
+    color: var(--accent-cyan);
+    opacity: 0.8;
+    background: rgba(255, 255, 255, 0.03);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid var(--glass-border);
+}
+
+/* --- COLUMN 4: Support Vectors & Socials --- */
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.footer-contact-item i {
+    color: var(--accent-cyan);
+}
+
+.footer-contact-item a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.footer-contact-item a:hover {
+    color: var(--accent-cyan);
+}
+
+.location-stamp {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0 0 30px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-social-wrapper {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-icon:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-cyan);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 242, 254, 0.2);
+}
+
+/* --- BOTTOM BAR METADATA --- */
+.ss-footer-bottom {
+    position: relative;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.ss-footer-bottom p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.bottom-bar-center {
+    text-align: center;
+}
+
+.bottom-bar-right {
+    text-align: right;
+}
+
+.dev-credit {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    background: linear-gradient(90deg, var(--text-secondary), var(--text-muted));
+    -webkit-background-clip: text;
+    
+}
+
+.version-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* --- BACK TO TOP ENGINE INTERFACE --- */
+.glass-back-to-top {
+    position: fixed;
+    bottom: 30px;      /* Anchors beautifully in the lower right viewport safe zone */
+    right: 30px;       /* Keeps uniform margin spacing away from the screen glass bezel */
+    width: 46px;       /* Marginally upscaled for enhanced student accessibility interaction targets */
+    height: 46px;
+    
+    /* Premium High-Contrast Light-Themed Glass Styling matching your canvas palette */
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    
+    /* Use your theme's defined border token variable mapping */
+    border: 1px solid var(--glass-border); 
+    border-radius: 50%; /* Rounded circle geometry contrasts nicely against block grid cards */
+    
+    /* Color sync to pull accent text main dark purple color rules */
+    color: var(--text-main);
+    font-size: 16px;
+    
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Structural state initialization for JavaScript logic controller animations */
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+    
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(76, 73, 216, 0.15);
+    z-index: 999; /* Ensures it floats cleanly above all dashboard grids and overlays */
+}
+
+.glass-back-to-top:hover {
+    background: rgba(255, 255, 255, 0.75);
+    color: #4c49d8; /* Swaps icon fill to accent violet on interactive focus pointer states */
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 28px rgba(76, 73, 216, 0.25);
+    border-color: rgba(76, 73, 216, 0.4);
+}
+
+/* ==========================================================================
+   DYNAMIC MEDIA QUERY BREAKPOINTS MATRIX (RESPONSIVE ENGINE)
+   ========================================================================== */
+
+@media (max-width: 1100px) {
+    .ss-footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+    .ss-footer-bottom {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    .bottom-bar-center {
+        grid-column: span 2;
+        order: 3;
+        text-align: left;
+        margin-top: 5px;
+    }
+    .bottom-bar-right {
+        text-align: right;
+    }
+}
+
+@media (max-width: 650px) {
+    .ss-footer {
+        padding: 50px 20px 20px 20px;
+        margin-top: 40px;
+    }
+    .ss-footer-container {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+    .ss-footer-bottom {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        text-align: center;
+    }
+    .bottom-bar-left, .bottom-bar-center, .bottom-bar-right {
+        text-align: center;
+        grid-column: span 1;
+    }
+    .glass-back-to-top {
+        right: 20px;
+    }
+}

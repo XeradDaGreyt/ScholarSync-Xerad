@@ -136,14 +136,119 @@ body.dashboard-body {
     margin-top: 20px;
 }
 
+#logoutModal.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(24, 24, 39, 0.4); 
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#logoutModal.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Glassmorphic Rounded Core Card container sync */
+#logoutModal .modal-box {
+    background: rgba(255, 255, 255, 0.85); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 35px;
+    width: 440px;
+    max-width: 90%;
+    border-radius: 28px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#logoutModal.modal-overlay.active .modal-box {
+    transform: scale(1);
+}
+
+#logoutModal h3 {
+    font-size: 20px; 
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+/* Flex Container for uniform equal-width distribution */
+#logoutModal .modal-actions {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 15px !important;
+    margin-top: 10px !important;
+    width: 100% !important;
+}
+
+/* Base style mapping to make BOTH cancel and log out identical structural shapes */
+#logoutModal #cancelLogoutBtn,
+#logoutModal #confirmLogoutBtn {
+    flex: 1 !important;            /* Forces equal width distribution */
+    padding: 13px 20px !important;  /* Perfectly safe internal text spacer padding */
+    border-radius: 14px !important; /* Uniform smooth corner look */
+    font-size: 14px !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    display: inline-block !important;
+    transition: background 0.2s ease, transform 0.2s ease !important;
+}
+
+/* Specific Clean Cancel Button Aesthetics */
+#logoutModal #cancelLogoutBtn {
+    border: 1px solid var(--glass-border) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    color: var(--text-main) !important;
+    font-weight: 600 !important;
+}
+
+#logoutModal #cancelLogoutBtn:hover {
+    background: white !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Specific Coral Red Log Out Confirmation Aesthetics */
+#logoutModal #confirmLogoutBtn {
+    border: none !important;
+    background: #ff7675 !important; /* Matches note page variant exactly */
+    color: white !important;
+    font-weight: 700 !important;
+}
+
+#logoutModal #confirmLogoutBtn:hover {
+    background: #e85f5e !important;
+    transform: translateY(-1px) !important;
+}
+
 /* --- Main Viewport Canvas (Copied from style.css) --- */
 .main-content {
     margin-left: 250px;
     flex-grow: 1;
-    padding: 40px;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    
+    /* Change min-height to 100vh so content area spans the whole screen */
+    min-height: 100vh; 
+    
+    padding: 40px 40px 0 40px; 
+    position: relative;
 }
 
 /* --- Top Header Nav (Copied from style.css) --- */
@@ -165,59 +270,35 @@ body.dashboard-body {
     font-size: 14px;
 }
 
-/* --- Search Bar Styling (Copied from style.css) --- */
-.search-bar {
-    position: relative;
-}
-
-.search-bar input {
-    background: rgba(255, 255, 255, 0.45);
-    border: 1px solid var(--glass-border);
-    padding: 10px 16px 10px 40px;
-    border-radius: 20px;
-    width: 260px;
-    font-size: 14px;
-    color: var(--text-main);
-    outline: none;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
-}
-
-.search-bar input:focus {
-    background: rgba(255, 255, 255, 0.75);
-    width: 300px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-}
-
-.search-bar i {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted);
-    font-size: 14px;
-}
-
 /* ==========================================================================
-   DASHBOARD SPECIFIC MODULES (ADJUSTED TO MATCH STYLE.CSS CODES)
+
+                        DASHBOARD SPECIFIC MODULES 
+
    ========================================================================== */
 
-/* Dashboard Grid adapted to style.css layout scales */
-.dashboard-grid {
+
+   .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px; /* Matched style.css task gap */
+    gap: 20px; 
     margin-bottom: 40px;
+    
+    /* Adds enough height to the workspace cards layout to naturally push the footer down */
+    min-height: 75vh; 
 }
 
-/* Glassmorphism Cards configured to blend identically with task cards */
+/* DASHBAORD CALENDAR */
+.calendar-card {
+    grid-column: span 3;
+}
+
 .glass-card {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
-    border-radius: 16px; /* Matched layout task card border radius */
-    padding: 20px; /* Matched layout task card padding style */
+    border-radius: 16px; 
+    padding: 20px; 
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.04);
 }
 
@@ -228,15 +309,14 @@ body.dashboard-body {
     margin-bottom: 15px;
 }
 
-.card-header h3 { 
+.card-header h3 {
     font-size: 15px; /* Aligned with task headers */
-    font-weight: 600; 
-    color: var(--text-main); 
+    font-weight: 600;
+    color: var(--text-main);
 }
-
-.card-header i { 
-    color: var(--text-muted); 
-    cursor: pointer; 
+.card-header i {
+    color: var(--text-muted);
+    cursor: pointer;
 }
 
 /* Empty State Styling matches task empty states */
@@ -251,32 +331,7 @@ body.dashboard-body {
     font-size: 14px;
 }
 
-/* --- Timer Section Component Elements --- */
-.timer-container {
-    display: flex;
-    justify-content: center;
-    margin: 1.5rem 0;
-}
 
-.timer-circle {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    border: 10px solid rgba(255, 255, 255, 0.2);
-    border-top: 10px solid #4c49d8; /* Uses tasks theme brand color accent */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--text-main);
-}
-
-.timer-controls {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-}
 
 .btn-main, .btn-sub {
     padding: 8px 16px;
@@ -287,68 +342,565 @@ body.dashboard-body {
     transition: 0.2s;
 }
 
-.btn-main { 
+.btn-main {
     background: #4c49d8; /* Matching the main purple save theme action trigger colors */
-    color: white; 
+    color: white;
 }
 
-.btn-sub { 
-    background: rgba(255, 255, 255, 0.4); 
+.btn-sub {
+    background: rgba(255, 255, 255, 0.4);
     border: 1px solid var(--glass-border);
-    color: var(--text-main); 
+    color: var(--text-main);
 }
 
-.btn-main:hover { 
-    background: #3b38c2; 
+.btn-main:hover {
+    background: #3b38c2;
+}
+/* ---------------------- */
+/* WEEKLY CALENDAR LAYOUT */
+
+/* Core Weekly Grid Wrapper System */
+.weekly-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    width: 100%;
 }
 
-.timer-circle.active {
-    animation: spinRing 4s linear infinite;
+/* Individual Grid Date Block Cells Frame */
+.weekly-calendar-grid .date-cell.weekly-cell {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 10px 6px;
+    
+    /* FIX: Lock the height explicitly for perfect uniformity across all 7 cells */
+    height: 120px; 
+    box-sizing: border-box;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Stretches the children event stack to use the full width */
+    justify-content: flex-start;
+    overflow: hidden;    /* Safety guard to hide any task overflows gracefully */
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
-@keyframes spinRing {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+/* Hover Accent Feedback Effects */
+.weekly-calendar-grid .date-cell.weekly-cell:hover {
+    background: rgba(26, 22, 22, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
 }
+
+/* CRITICAL: Enforced High Visibility Bold Numerical Markers */
+.weekly-calendar-grid .date-cell.weekly-cell .date-number {
+    font-size: 1.1rem;
+    font-weight: 800; /* Extra bold highlight formatting for tracking dates */
+    color: #4a4747;
+    margin-bottom: 6px;
+    display: block;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Highlight Indicator Treatment for Current Calendar Day Match */
+.weekly-calendar-grid .date-cell.weekly-cell.current-today {
+    background: linear-gradient(135deg, hsl(229, 84%, 55%), #cdcce4); 
+    border: 2px solid #ffffff; /* Vibrant matching perimeter line */
+}
+
+.weekly-calendar-grid .date-cell.weekly-cell.current-today .date-number {
+    color: #eeeef1; /* Matches numbers to active theme color styling rules */
+}
+
+/* Stack Array Wrapper Definitions */
+.weekly-calendar-grid .cell-events-stack {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: auto; /* Pulls active stack entries clean towards box bottoms */
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+/* Schedule List Item Micro Pill Components */
+.weekly-calendar-grid .micro-event-pill {
+    background: transparent;
+    backdrop-filter: blur(1000px);
+    border-left: 3px solid #ffffff;
+    color: #000000;
+    font-size: 0.72rem;
+    padding: 3px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    white-space: nowrap;    /* Forces your event name to stay on one horizontal line */
+    overflow: hidden;       /* Instantly cuts off text going past cell container limits */
+    text-overflow: ellipsis;/* Appends the '...' automatically at the boundary */
+    box-sizing: border-box;
+}
+
+/* Overflow Text Properties Formatting Labels */
+.weekly-calendar-grid .micro-event-overflow {
+    font-size: 0.68rem;
+    opacity: 0.6;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* --------------------- */
+
+
+/* ==========================================================================
+   FIXED-SIZE DASHBOARD CARDS ARCHITECTURE
+   ========================================================================== */
+
+/* 1. Base rule for all structural dashboard panels */
+.calendar-card{
+    height: 230px;
+}
+.task-card,
+.notes-card,
+.graph-card {
+    height: 320px;         /* Explicitly locks the height of every card */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;      /* Prevents content from breaking out of the glass frame */
+}
+
+/* 2. Standardizing the card headers */
+.task-card .card-header,
+.notes-card .card-header,
+.graph-card .card-header {
+    flex-shrink: 0;        /* Prevents headers from squishing */
+    margin-bottom: 15px;
+}
+
+/* ==========================================================================
+   INTERNAL CONTENT SCROLL CLAMPING
+   ========================================================================== */
+
+/* 3. Task Container Layout Adjustments */
+#task-list {
+    flex-grow: 1;          /* Takes up exactly what space is left */
+    overflow-y: auto;      /* Adds a vertical scrollbar if anything breaks rules */
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 4. Notes Container Layout Clamping */
+#notes-container {
+    flex-grow: 1;
+    overflow-y: auto;      /* If notes accumulate, scroll inside the fixed box */
+    padding-right: 4px;
+}
+
+/* 5. Progress Graph Layout Clamping */
+#progress-content {
+    flex-grow: 1;
+    position: relative;    /* Required for Chart.js to scale beautifully without expanding */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#productivityChart {
+    height: 250px !important; /* Explicitly locks the bounding area */
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.week-nav-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(135deg, #ffffff, #ffffff);
+    color: #000000;
+
+    box-shadow: 0 6px 15px rgba(76, 73, 216, 0.25);
+    transition: all 0.2s ease;
+}
+
+.week-nav-btn i {
+    font-size: 14px;
+}
+
+.week-nav-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(103, 102, 102, 0.35);
+}
+
+.week-nav-btn:active {
+    transform: scale(0.95);
+}
+
+/* ==========================================================================
+   SCROLLBAR UI POLISHING (Optional - For Sleek Look)
+   ========================================================================== */
+#task-list::-webkit-scrollbar,
+#notes-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+#task-list::-webkit-scrollbar-thumb,
+#notes-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+/* TASK SCROLLABLE */
+
+/* --- Dashboard Task List Container & Scroll Customization --- */
+#task-list {
+    max-height: 280px; /* Limits size to roughly 5 items depending on font padding */
+    overflow-y: auto;  /* Activates vertical scrollbar when content overflows */
+    padding-right: 4px;
+    position: relative; /* Anchor alignment scope for absolute positioning */
+}
+
+/* Individualized task item borders */
+.dash-task-item {
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Sleek glass-friendly border */
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
+    
+    /* The Multi-Layered Border Effect */
+    border: 1px solid rgba(255, 255, 255, 0.25); 
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.3), /* Top inner highlight */
+        0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dash-task-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Hover accent feedback */
+.dash-task-item:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Fixed Bottom-Right Overflow Indicator */
+.dash-task-overflow {
+    position: sticky;
+    bottom: 0;
+    right: 0;
+    float: right;
+    background: rgba(0, 0, 0, 0.65); /* Keeps it highly legible against scrolled text */
+    backdrop-filter: blur(4px);
+    color: #636363;                 /* Warm highlight accent tone */
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+    z-index: 2;
+    pointer-events: none;          /* Click-through transparent utility */
+}
+
+.dash-overflow-link {
+    display: block;
+    text-align: right;
+    color: #636363;               /* Your warm highlight accent tone */
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+    margin-top: auto;             /* Automatically pushes it to the bottom of the card */
+    background: transparent;      /* Removes the harsh dark floating box */
+}
+
+.dash-overflow-link:hover {
+    color: #ff9d3b;               /* Slightly darker warm tone on hover */
+    text-decoration: underline;
+}
+
+.dash-note-preview {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Cuts text beautifully at exactly 2 lines */
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    margin-top: 6px;
+    color: #666; /* Subtle text color for content description */
+}
+
+/* 1. Make the notes grid container scrollable and capped at 5 notes */
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    max-height: 520px; /* Adjust this based on your note card height to fit roughly 2 rows or 5 notes */
+    overflow-y: auto;
+    padding-right: 8px; /* Smooth scrolling space */
+}
+
+/* 2. Cut off the content text after a specific number of lines (e.g., 3 lines) */
+.note-card .note-content {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Change this number to show more or fewer lines before cutting */
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* ---------------------------- */
 
 /* --- Footer Area Sheet Structure --- */
-.dashboard-footer {
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    padding: 14px 0;         
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
-    width: 100%;             
-    margin-top: 20px;   
+/* ==========================================================================
+   SCHOLARSYNC PREMIUM GLASSMORPHISM FOOTER SUITE
+   ========================================================================== */
+
+.ss-footer {
+   position: relative;
+    width: auto; /* Changed from 100% to auto to work perfectly with negative margins */
+    
+    /* Negative margins cancel out the 40px padding from .main-content */
+    margin: 60px -40px 0 -40px; 
+    
+    /* Internal padding stays so your footer text doesn't touch the screen glass */
+    padding: 60px 40px 30px 40px; 
+    
+    /* Clean top border, corners flattened down */
+    border-radius: 0; 
+    
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    border-top: 1px solid var(--glass-border);
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.05),
+        0 -10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    
+    /* Pushes footer flat against the bottom if screen has tiny content */
+    margin-top: auto;
 }
 
-.dashboard-footer p {
-    font-size: 14px;
-    color: var(--text-main);
-    font-style: italic;
+/* Ambient Vector Mesh Background Lights Grid Overlay */
+.ss-footer-bg-glow {
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 242, 254, 0.06) 0%, rgba(76, 73, 216, 0.03) 50%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(40px);
 }
+
+.ss-footer-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr 1fr 1fr;
+    gap: 40px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.ss-footer-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.ss-footer-heading {
+    position: relative;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 25px 0;
+    letter-spacing: 0.5px;
+}
+
+.ss-footer-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 30px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+    border-radius: 2px;
+}
+
 
 /* --- Media Queries Responsive Breakpoints Control (Copied from style.css) --- */
 @media (max-width: 1100px) {
-    .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
-    .calendar-card { grid-column: span 2; }
+    /* Shifts the bottom three cards into a 2-column layout */
+    .dashboard-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    /* Let the Weekly Schedule adjust perfectly over the 2 columns */
+    .calendar-card { 
+        grid-column: span 2; 
+    }
+    /* Allow the 3rd card (Productivity) to expand neatly if it gets orphaned */
+    .graph-card {
+        grid-column: span 2;
+    }
 }
 
 @media (max-width: 768px) {
-    .sidebar {
+    .sidebar { 
         width: 70px;
+        height: 100%;
     }
     .sidebar .logo span, .sidebar nav a span {
         display: none;
     }
     .sidebar .logo { padding: 0; justify-content: center; }
     .sidebar nav a i { margin-right: 0; font-size: 18px; }
-    .main-content { margin-left: 70px; padding: 20px; }
+    
+    /* Viewport layout shifts to a single column list stacking downwards */
+    .main-content { margin-left: 70px; padding: 20px 20px 0 20px; }
     .top-nav { flex-direction: column; gap: 20px; }
     .search-bar input { width: 100%; }
     .search-bar input:focus { width: 100%; }
-    .dashboard-grid { grid-template-columns: 1fr; }
+    
+    .dashboard-grid { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .calendar-card, .graph-card { 
+        grid-column: span 1; 
+    }
+
+    .sidebar nav a::after {
+        content: attr(title); /* Grabs text values safely from the HTML title tags */
+        position: absolute;
+        left: 65px; /* Safely clears the slim sidebar boundaries */
+        top: 50%;
+        transform: translateY(-50%) translateX(-10px);
+        background: #181827; /* Dark glass contrast hue styling */
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 8px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        z-index: 99999;
+    }
+
+    /* Small pointer indicator triangle for the tooltip box */
+    .sidebar nav a::before {
+        content: '';
+        position: absolute;
+        left: 59px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-width: 4px 6px 4px 0;
+        border-style: solid;
+        border-color: transparent #181827 transparent transparent;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        z-index: 99999;
+    }
+
+    /* Hover State Active Trigger Animations */
+    .sidebar nav a:hover::after {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+
+    .sidebar nav a:hover::before {
+        opacity: 1;
+    }
+}
+
+/* --------------------------------
+         LOG OUT WINDOW 
+-------------------------------- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* adjustment overlay color */
+    display: none; /* Keep it completely removed until JavaScript triggers 'flex' */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it stays on top of the sidebar */
+}
+
+.modal-card {
+    width: 340px;
+    text-align: center;
+    padding: 25px !important;
+    animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.modal-card p {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 24px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.modal-actions button {
+    flex: 1;
+    padding: 10px 0;
+}
+
+/* Modal Appear Micro-animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }

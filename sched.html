@@ -4,51 +4,226 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScholarSync | Schedule</title>
-     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sched.css">
+    <link rel="stylesheet" href="footer.css">
 </head>
-<body>
+<body class="dashboard-body">
     <section>
-        <body class="dashboard-body">
-            <div class="app-container">
-                <aside class="sidebar">
-                    <div class="logo">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>ScholarSync</span>
-                    </div>
-                    <nav>
-                        <a href="dashboard.html" ><i class="fas fa-th-large"></i> Dashboard</a>
-                        <a href="task.html" ><i class="fas fa-check-double"></i> Tasks</a>
-                        <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
-                        <a href="#" class="active"><i class="fas fa-calendar-alt"></i>Schedule</a>
-                        <a href="timer.html"><i class="fas fa-stopwatch"></i> Timer</a>
-                        <div class="nav-divider"></div>
-                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    </nav>
-                </aside>
+        <div class="app-container">
+            <aside class="sidebar">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>ScholarSync</span>
+                </div>
+                <nav>
+                    <a href="dashboard.html" title="Dashboard"><i class="fas fa-th-large"></i> <span>Dashboard</span></a>
+                    <a href="task.html" title="Tasks"><i class="fas fa-check-double"></i> <span>Tasks</span></a>
+                    <a href="notes.html" title="Notes" ><i class="fas fa-sticky-note"></i> <span>Notes</span></a>    
+                    <a href="#" title="Schedule" class="active"><i class="fas fa-calendar-alt"></i> <span>Schedule</span></a>
+                    <div class="nav-divider"></div>
+                    <a href="#" id="logoutBtn" title="Logout"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>    
+                </nav>
+            </aside>
 
-                <main class="main-content">
-                    <header class="top-nav">
-                        <div class="welcome-header">
-                            <h1>Welcome back, Darex! 👋</h1>
-                            <p>Ready to achieve your goals today?</p>
-                        </div>
-                        <div class="header-right">
-                            <div class="search-bar">
-                                <i class="fas fa-search"></i>
-                                <input type="text" placeholder="Search your desk...">
+            <main class="main-content">
+                <header class="top-nav">
+                    <div class="welcome-header">
+                        <h1><i class="fa-solid fa-calendar-days"></i> Schedule Management</h1>
+                        <p>Keep your calendar organized and your team aligned.</p>
+                    </div>
+                    <div class="header-right">
+                        <button class="btn-main" id="openAddEventModalBtn">
+                            <i class="fas fa-plus"></i> Add Event
+                        </button>
+                    </div>
+                </header>
+
+                <div class="dashboard-grid">
+                    <div class="calendar-card">
+                        <div class="calendar-control-bar">
+                            <div class="calendar-nav-title">
+                                <button class="cal-nav-btn" id="prevMonthBtn" title="Previous Month">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <h2 id="calendarMonthYearDisplay">January 2026</h2>
+                                <button class="cal-nav-btn" id="nextMonthBtn" title="Next Month">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
                             </div>
                         </div>
-                    </header>
 
-                    
+                        <div class="calendar-matrix">
+                            <div class="week-headers-row">
+                                <div class="weekday-label">Sun</div>
+                                <div class="weekday-label">Mon</div>
+                                <div class="weekday-label">Tue</div>
+                                <div class="weekday-label">Wed</div>
+                                <div class="weekday-label">Thu</div>
+                                <div class="weekday-label">Fri</div>
+                                <div class="weekday-label">Sat</div>
+                            </div>
+                            <div class="days-grid" id="calendarDaysGridNode"></div>
+                        </div>
+                    </div>
+                </div>
 
-                    <footer class="dashboard-footer">
-                        <p>"Small steps every day lead to big results."</p>
-                    </footer>
-                </main>
-            </div>
+                <div class="modal-overlay" id="addEventModalOverlay">
+                    <div class="modal-card">
+                        <h3>Add Event</h3>
+                        <form id="addEventSubmissionForm" onsubmit="event.preventDefault();">
+                            <div class="modal-form-group">
+                                <label for="eventInputName">Event Name</label>
+                                <input type="text" id="eventInputName" required placeholder="e.g., CS101 Final Exam Study Group">
+                            </div>
+                            <div class="modal-form-group">
+                                <label for="eventInputDate">Date</label>
+                                <input type="date" id="eventInputDate" required>
+                            </div>
+                            <div class="modal-form-group">
+                                <label for="eventInputTime">Time</label>
+                                <input type="time" id="eventInputTime" required>
+                            </div>
+                            <div class="modal-actions">
+                                <button type="button" class="btn-sub" id="cancelAddEventModalBtn">Cancel</button>
+                                <button type="submit" class="btn-main" id="saveEventSubmitBtn">Save Event</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal-overlay" id="dayInspectorModalOverlay">
+                    <div class="modal-card">
+                        <h3 id="inspectorModalTitleDateLabel">Events on Chosen Date</h3>
+                        <div class="events-inspector-list" id="inspectorEventsListStackNode"></div>
+                        <div class="modal-actions">
+                            <button type="button" class="btn-sub" id="closeInspectorModalBtn">Close</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-overlay" id="editEventModalOverlay">
+                    <div class="modal-card">
+                        <h3>Edit Event</h3>
+                        <form id="editEventSubmissionForm" onsubmit="event.preventDefault();">
+                            <div class="modal-form-group">
+                                <label for="editInputName">Event Name</label>
+                                <input type="text" id="editInputName" required>
+                            </div>
+                            <div class="modal-form-group">
+                                <label for="editInputDate">Date</label>
+                                <input type="date" id="editInputDate" required>
+                            </div>
+                            <div class="modal-form-group">
+                                <label for="editInputTime">Time</label>
+                                <input type="time" id="editInputTime" required>
+                            </div>
+                            <div class="modal-actions">
+                                <button type="button" class="btn-danger" id="deleteEventActionBtn" style="margin-right: auto;">Delete Event</button>
+                                <button type="button" class="btn-sub" id="cancelEditEventModalBtn">Cancel</button>
+                                <button type="submit" class="btn-main" id="saveEditEventChangesBtn">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="logoutModal" class="modal-overlay">
+                    <div class="modal-box" style="text-align: center;">
+                        <div class="warning-icon-wrapper" style="font-size: 40px; color: #4c49d8; margin-bottom: 15px;">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <h3>Log Out</h3>
+                        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">
+                            Are you sure you want to log out of your account?
+                        </p>
+                        <div class="modal-actions">
+                            <button id="cancelLogoutBtn" class="btn-modal btn-cancel">Cancel</button>
+                            <button id="confirmLogoutBtn" class="btn-modal btn-save" style="background-color: #ff6b6b; box-shadow: 0 4px 15px rgba(255, 107, 107, 0.25);">Log Out</button>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="ss-footer">
+                <button class="glass-back-to-top" id="backToTopBtn" title="Back to Top">
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+
+                <div class="ss-footer-bg-glow"></div>
+                
+                <div class="ss-footer-container">
+                    <div class="ss-footer-column brand-column">
+                        <div class="footer-logo">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>ScholarSync</span>
+                        </div>
+                        <p class="brand-desc">ScholarSync helps students manage tasks, schedules, notes, and productivity in one organized workspace.</p>
+                        <span class="brand-tagline">Study smarter. Stay organized.</span>
+                        
+                        <div class="footer-newsletter">
+                            <h4>Stay Updated</h4>
+                            <div class="newsletter-field">
+                                <input type="email" placeholder="Enter student email..." aria-label="Newsletter email">
+                                <button type="button" title="Subscribe"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ss-footer-column links-column">
+                        <h3 class="ss-footer-heading">Quick Links</h3>
+                        <ul class="footer-nav-list">
+                            <li><a href="dashboard.html" class="footer-link"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                            <li><a href="task.html" class="footer-link"><i class="fas fa-check-double"></i> Tasks</a></li>
+                            <li><a href="notes.html" class="footer-link"><i class="fas fa-sticky-note"></i> Notes</a></li>
+                            <li><a href="#" class="footer-link active"><i class="fas fa-calendar-alt"></i> Schedule</a></li> 
+                        </ul>
+                    </div>
+
+                    <div class="ss-footer-column features-column">
+                        <h3 class="ss-footer-heading">Features</h3>
+                        <ul class="footer-feature-list">
+                            <li><i class="fa-solid fa-wand-magic-sparkles"></i> Smart Task Tracking</li>
+                            <li><i class="fa-regular fa-clock"></i> Weekly Scheduling</li>
+                            <li><i class="fa-solid fa-chart-line"></i> Analytics Progress</li>
+                            <li><i class="fa-solid fa-cloud-arrow-down"></i> Local Cloud Storage</li>
+                            <li><i class="fa-solid fa-user-graduate"></i> Student First UI</li>
+                            <li><i class="fa-solid fa-mobile-screen-button"></i> Fully Responsive</li>
+                        </ul>
+                    </div>
+
+                    <div class="ss-footer-column contact-column">
+                        <h3 class="ss-footer-heading">Connect With Us</h3>
+                        <div class="footer-contact-item">
+                            <i class="far fa-envelope"></i>
+                            <a href="mailto:scholarsync@gmail.com">scholarsync@gmail.com</a>
+                        </div>
+                        <p class="location-stamp"><i class="fas fa-map-marker-alt"></i> Philippines</p>
+                        
+                        <div class="footer-social-wrapper">
+                            <a href="#" class="social-icon" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-icon" title="Facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon" title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ss-footer-bottom">
+                    <div class="bottom-bar-left">
+                        <p>&copy; 2026 ScholarSync. All Rights Reserved.</p>
+                    </div>
+                    <div class="bottom-bar-center">
+                        <p class="dev-credit">Designed for modern student productivity.</p>
+                    </div>
+                    <div class="bottom-bar-right">
+                        <span class="version-badge">Version 1.0</span>
+                    </div>
+                </div>
+            </footer>
+            </main>
+        </div>
     </section>
+    
+    <script src="sched.js"></script>
+    <script src="footer.js"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="task.css">
+    <link rel="stylesheet" href="footer.css">
 </head>
 <body class="dashboard-body">
     <div class="app-container">
@@ -16,42 +17,132 @@
                 <span>ScholarSync</span>
             </div>
             <nav>
-                <a href="dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
-                <a href="#" class="active"><i class="fas fa-check-double"></i> Tasks</a>
-                <a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a>
-                <a href="sched.html"><i class="fas fa-calendar-alt"></i> Schedule</a>
-                <a href="timer.html"><i class="fas fa-stopwatch"></i> Timer</a>
+                <a href="dashboard.html" title="Dashboard"><i class="fas fa-th-large"></i> <span>Dashboard</span></a>
+                <a href="#" class="active" title="Task"><i class="fas fa-check-double"></i> <span>Tasks</span></a>
+                <a href="notes.html" title="Notes"><i class="fas fa-sticky-note"></i> <span>Notes</span></a>
+                <a href="sched.html" title="Schedule"><i class="fas fa-calendar-alt"></i> <span>Schedule</span></a>
                 <div class="nav-divider"></div>
-                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="#" id="logoutBtn" title="Logout"><i class="fas fa-sign-out-alt"></i><span> Logout</span></a>
             </nav>
         </aside>
 
         <main class="main-content">
-            <header class="top-nav">
+           <!-- Replace your current <header class="top-nav"> block with this exact layout structure -->
+        <header class="top-nav" style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; width: 100%;">
+            
+            <!-- Top Row Container: Separates Welcome Title (Left) from Search/Buttons (Right) -->
+            <div class="header-main-row" style="display: flex; justify-content: space-between; width: 100%; align-items: center; flex-wrap: wrap; gap: 15px;">
                 <div class="welcome-header">
-                    <h1>Welcome back, Darex! 👋</h1>
-                    <p>Ready to achieve your goals today?</p>
+                    <h1><i class="fa-solid fa-list-check"></i> Task management </h1>
+                    <p>Organize, prioritize, and complete work efficiently.</p>
                 </div>
-                <div class="header-right">
+                
+                <div class="header-right" style="display: flex; align-items: center; gap: 15px;">
                     <div class="search-bar">
                         <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Search your desk...">
+                        <input type="text" id="taskSearchInput" placeholder="Search your task...">
+                    </div>
+                    <div class="action-trigger-zone">
+                        <button class="btn-add-task" id="openModalBtn">
+                            <i class="fas fa-plus"></i> Add Task
+                        </button>
                     </div>
                 </div>
-            </header>
+            </div>
+
+            <!-- Bottom Row Container: Fixed directly underneath the welcome message -->
+            <div class="filter-bar-container" style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
+                <label for="taskSortFilter" style="font-size: 13px; font-weight: 600; color: #495057;">
+                    <i class="fa-solid fa-sliders"></i> Arrange By:
+                </label>
+                <select id="taskSortFilter" style="padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.15); background: #ffffff; font-family: 'Open Sans', sans-serif; font-size: 13px; color: #495057; cursor: pointer; outline: none; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <option value="none">Default (All Tasks)</option>
+                    <option value="priority">Priority Tier (High vs Low)</option>
+                    <option value="date">Date (Due Today vs Later)</option>
+                </select>
+            </div>
+
+        </header>
 
             <div class="tasks-workspace">
                 <div class="tasks-grid" id="tasksGrid"></div>
             </div>
+            <!--FOOTER -->
 
-            <div class="action-trigger-zone">
-                <button class="btn-add-task" id="openModalBtn">
-                    <i class="fas fa-plus"></i> Add Task
+            <footer class="ss-footer">
+                <button class="glass-back-to-top" id="backToTopBtn" title="Back to Top">
+                    <i class="fas fa-chevron-up"></i>
                 </button>
-            </div>
 
-            <footer class="dashboard-footer">
-                <p>"Small steps every day lead to big results."</p>
+                <div class="ss-footer-bg-glow"></div>
+                
+                <div class="ss-footer-container">
+                    <div class="ss-footer-column brand-column">
+                        <div class="footer-logo">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>ScholarSync</span>
+                        </div>
+                        <p class="brand-desc">ScholarSync helps students manage tasks, schedules, notes, and productivity in one organized workspace.</p>
+                        <span class="brand-tagline">Study smarter. Stay organized.</span>
+                        
+                        <div class="footer-newsletter">
+                            <h4>Stay Updated</h4>
+                            <div class="newsletter-field">
+                                <input type="email" placeholder="Enter student email..." aria-label="Newsletter email">
+                                <button type="button" title="Subscribe"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ss-footer-column links-column">
+                        <h3 class="ss-footer-heading">Quick Links</h3>
+                        <ul class="footer-nav-list">
+                           <li><a href="dashboard.html" class="footer-link"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                            <li><a href="#" class="footer-link active"><i class="fas fa-check-double"></i> Tasks</a></li>
+                            <li><a href="notes.html" class="footer-link"><i class="fas fa-sticky-note"></i> Notes</a></li>
+                            <li><a href="sched.html" class="footer-link"><i class="fas fa-calendar-alt"></i> Schedule</a></li> 
+                        </ul>
+                    </div>
+
+                    <div class="ss-footer-column features-column">
+                        <h3 class="ss-footer-heading">Features</h3>
+                        <ul class="footer-feature-list">
+                            <li><i class="fa-solid fa-wand-magic-sparkles"></i> Smart Task Tracking</li>
+                            <li><i class="fa-regular fa-clock"></i> Weekly Scheduling</li>
+                            <li><i class="fa-solid fa-chart-line"></i> Analytics Progress</li>
+                            <li><i class="fa-solid fa-cloud-arrow-down"></i> Local Cloud Storage</li>
+                            <li><i class="fa-solid fa-user-graduate"></i> Student First UI</li>
+                            <li><i class="fa-solid fa-mobile-screen-button"></i> Fully Responsive</li>
+                        </ul>
+                    </div>
+
+                    <div class="ss-footer-column contact-column">
+                        <h3 class="ss-footer-heading">Connect With Us</h3>
+                        <div class="footer-contact-item">
+                            <i class="far fa-envelope"></i>
+                            <a href="mailto:scholarsync@gmail.com">scholarsync@gmail.com</a>
+                        </div>
+                        <p class="location-stamp"><i class="fas fa-map-marker-alt"></i> Philippines</p>
+                        
+                        <div class="footer-social-wrapper">
+                            <a href="#" class="social-icon" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-icon" title="Facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon" title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ss-footer-bottom">
+                    <div class="bottom-bar-left">
+                        <p>&copy; 2026 ScholarSync. All Rights Reserved.</p>
+                    </div>
+                    <div class="bottom-bar-center">
+                        <p class="dev-credit">Designed for modern student productivity.</p>
+                    </div>
+                    <div class="bottom-bar-right">
+                        <span class="version-badge">Version 1.0</span>
+                    </div>
+                </div>
             </footer>
         </main>
     </div>
@@ -90,7 +181,42 @@
             </form>
         </div>
     </div>
+        <div class="modal-overlay" id="deleteModal">
+            <div class="modal-box confirmation-content" style="text-align: center;">
+                <div class="warning-icon-wrapper" style="font-size: 40px; color: var(--priority-high); margin-bottom: 15px;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 class="modal-title" id="deleteModalTitle" style="margin-bottom: 10px;">Delete Task</h3>
+                <p class="confirmation-text" id="deleteModalText" style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">
+                    Are you sure you want to delete this task?
+                </p>
+                
+                <div class="modal-actions">
+                    <button onclick="closeDeleteModal()" class="btn-modal btn-cancel">Cancel</button>
+                    <button onclick="executeDeletion()" class="btn-modal btn-save" style="background-color: var(--priority-high); box-shadow: 0 4px 15px rgba(255, 107, 107, 0.25);">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logout Confirmation Modal Overlay -->
+       <div id="logoutModal" class="modal-overlay">
+            <div class="modal-box" style="text-align: center;">
+                <div class="warning-icon-wrapper" style="font-size: 40px; color: #4c49d8; margin-bottom: 15px;">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <h3>Log Out</h3>
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">
+                    Are you sure you want to log out of your account?
+                </p>
+                <div class="modal-actions">
+                    <button id="cancelLogoutBtn" class="btn-modal btn-cancel">Cancel</button>
+                    <button id="confirmLogoutBtn" class="btn-modal btn-save" style="background-color: #ff6b6b; box-shadow: 0 4px 15px rgba(255, 107, 107, 0.25);">Log Out</button>
+                </div>
+            </div>
+        </div>
+        
 
     <script src="task.js"></script>
+    <script src="footer.js"></script>
 </body>
 </html>
